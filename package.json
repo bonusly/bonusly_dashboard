@@ -1,4 +1,9 @@
 {
-  "name": "helloworld",
-  "main": "index.html"
+  "name": "Bonusly Dashboard",
+  "main": "index.html",
+  "version": "1.0.0",
+  "window": {
+    "width": 1200,
+    "height": 700
+  }
 }
