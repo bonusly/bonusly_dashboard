@@ -2506,13 +2506,13 @@ hr {
   border-radius: 0.25em;
   padding: 0 0.325em; }
 
-.highlighted-bonus-name {
+.highlighted-bonus-name, .user-link {
   font-weight: bold;
   color: #1ec659; }
   .highlighted-bonus-name:hover {
     text-decoration: underline; }
 
-.highlighted-bonus-hashtag {
+.highlighted-bonus-hashtag, .hashtag {
   color: #aaa; }
   .highlighted-bonus-hashtag:hover {
     text-decoration: underline; }
