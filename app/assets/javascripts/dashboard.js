@@ -1,5 +1,5 @@
 Util = {
-  timeSince: function (date) {
+  timeSince: function(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
     var interval = Math.floor(seconds / 31536000);
 
@@ -31,7 +31,7 @@ function Bonus(data) {
 }
 
 Bonus.prototype = {
-  show: function () {
+  show: function() {
     var bonus = this;
     $('.highlighted-bonus-container').fadeOut(1000, function() {
       bonus.showFamilyAmount();
@@ -41,10 +41,10 @@ Bonus.prototype = {
       $('.highlighted-bonus-container').fadeIn(2000);
     });
   },
-  showFamilyAmount: function () {
+  showFamilyAmount: function() {
     $('.highlighted-bonus-total-value').text('+' + this.data.family_amount);
   },
-  showRecipients: function () {
+  showRecipients: function() {
     var $recipientsDiv = $('.highlighted-bonus-recipients');
     $recipientsDiv.empty();
 
@@ -55,19 +55,19 @@ Bonus.prototype = {
       $recipientsDiv.append($recipientDiv);
     }
   },
-  showReason: function () {
+  showReason: function() {
     var reason = this.data.reason_html;
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
     $bonusAuthor.text(this.data.giver.display_name + ':');
     $('#bonus-reason').html(this.highlightBonusAmount(reason, this.data.amount));
   },
-  showTimestamp: function () {
+  showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');
     $timestamp.text(Util.timeSince(new Date(this.data.created_at)) + ' ago');
     $timestamp.attr('href', 'https://bonus.ly/bonuses/' + this.data.id);
   },
-  highlightBonusAmount: function (text, amount) {
+  highlightBonusAmount: function(text, amount) {
     return text.replace('+' + amount, '<span class="highlighted-bonus-value">+' + amount + '</span>');
   }
 };
@@ -76,30 +76,49 @@ function BonusManager(accessToken, limit) {
   this.accessToken = accessToken;
   this.limit = limit;
   this.bonuses = [];
+  this.currentBonus = 0;
 }
 
 BonusManager.prototype = {
-  loadBonuses: function () {
+  loadBonuses: function(options) {
+    var oncomplete = options['oncomplete'] || function() {};
+    var onfailure = options['onfailure'] || function() {};
+
     var endpoint = 'https://bonus.ly/api/v1/bonuses?access_token=' + this.accessToken + '&limit=' + this.limit;
     var bonusManager = this;
-    $.getJSON(endpoint, function (data) {
-      bonusManager.bonuses = data['result'].map(function (item) {
-        return new Bonus(item);
+    $.getJSON(endpoint)
+      .done(function(data) {
+        bonusManager.bonuses = data['result'].map(function(item) {
+          return new Bonus(item);
+        });
+        bonusManager.shuffleBonuses();
+        oncomplete();
+      })
+      .fail(function() {
+        onfailure()
       });
-      bonusManager.showBonuses();
-    });
   },
-  showNextBonus: function () {
-    var bonus = this.bonuses.pop();
+  showNextBonus: function() {
+    var bonus = this.bonuses[this.currentBonus];
+    this.currentBonus = (this.currentBonus + 1) % this.bonuses.length;
     bonus.show();
   },
-  showBonuses: function () {
+  showBonuses: function() {
     this.showNextBonus();
     setInterval(this.showNextBonus.bind(this), 5000);
+    setInterval(this.loadBonuses.bind(this), 60 * 1000);
+  },
+  shuffleBonuses: function() {
+    for (var j, x, i = this.bonuses.length; i; j = Math.floor(Math.random() * i), x = this.bonuses[--i], this.bonuses[i] = this.bonuses[j], this.bonuses[j] = x);
   }
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
   var bonusManager = new BonusManager('50a4476bb976d572be8930b96dd2519b', '30');
-  bonusManager.loadBonuses();
+  bonusManager.loadBonuses({
+    oncomplete: bonusManager.showBonuses.bind(bonusManager),
+    onfailure: function() {
+      alert('Failed to load data!');
+    }
+  });
 });
