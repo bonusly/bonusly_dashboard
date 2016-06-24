@@ -1,4 +1,5 @@
 var Util = {
+  
   timeSince: function(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
     var interval = Math.floor(seconds / 31536000);
@@ -23,5 +24,8 @@ var Util = {
       return interval + " minutes";
     }
     return Math.floor(seconds) + " seconds";
-  }
+  },
+  
+  seconds: function(seconds) { return seconds * 1000; }
+  
 };

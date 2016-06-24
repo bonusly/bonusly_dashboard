@@ -20,6 +20,7 @@ a {
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
+	position: absolute;
   -webkit-box-orient: vertical;
   -moz-box-orient: vertical;
   box-orient: vertical;
@@ -30,8 +31,11 @@ a {
   -moz-flex-direction: column;
   flex-direction: column;
   -ms-flex-direction: column;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
   height: 100%;
   width: 100%;
+	margin: 0;
   background-color: #1ec659;
   font-size: 22.5px;
   font-size: 31.5px;

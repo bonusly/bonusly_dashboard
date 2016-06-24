@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    bonusly_dashboard (0.0.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bonusly_dashboard!
+
+BUNDLED WITH
+   1.12.5
