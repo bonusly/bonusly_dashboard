@@ -11,7 +11,7 @@ StatManager.prototype = {
     var receiver_ids = [];
     var stat_manager = this;
     $.each(data.result, function(_, item) {
-      if (Date.parse(item.created_at) >= (Date.now() - (60 * 60 * 24 * 1000))) {
+      if (Date.parse(item.created_at) >= (Date.now() - Util.days(1))) {
         stat_manager.todays_bonuses++;
 
         $.each(item.receivers, function (_, receiver) {

@@ -62,7 +62,8 @@ a {
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 0.5em; }
+	overflow: hidden;
+  margin: 0.5em; }
 
 .highlighted-bonus {
   max-width: 1400px;

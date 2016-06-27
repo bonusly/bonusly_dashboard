@@ -5,12 +5,18 @@ function Bonus(data) {
 Bonus.prototype = {
   show: function() {
     var bonus = this;
-    $('.highlighted-bonus-container').fadeOut(1000, function() {
+    var bonus_container = $('.highlighted-bonus-container');
+
+    bonus_container.fadeOut(Util.seconds(1), function() {
       bonus.showFamilyAmount();
       bonus.showRecipients();
       bonus.showReason();
       bonus.showTimestamp();
-      $('.highlighted-bonus-container').fadeIn(2000);
+      bonus_container.fadeIn(Util.seconds(2))
+          .delay(Util.seconds(2.5))
+          .animate({
+            scrollTop: bonus_container.height() - $('.highlighted-bonus').height()
+          }, Util.seconds(5));
     });
   },
   showFamilyAmount: function() {
@@ -29,6 +35,7 @@ Bonus.prototype = {
   },
   showReason: function() {
     var reason = this.data.reason_html;
+
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
     $bonusAuthor.text(this.data.giver.display_name + ':');
