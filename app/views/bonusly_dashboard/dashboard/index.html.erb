@@ -6,12 +6,14 @@
     <%= javascript_include_tag 'jquery-1.12.4.min.js' %>
     <%= javascript_include_tag 'Util.js' %>
     <%= javascript_include_tag 'Bonus.js' %>
-    <%= javascript_include_tag 'Manager.js' %>
+    <%= javascript_include_tag 'Receiver.js' %>
+    <%= javascript_include_tag 'StatManager.js' %>
     <%= javascript_include_tag 'BonusManager.js' %>
-    <%= javascript_include_tag 'BonuslyManager.js' %>
+    <%= javascript_include_tag 'Manager.js' %>
+    <%= javascript_include_tag 'BonuslyDashboard.js' %>
     <%= javascript_include_tag 'app.js' %>
   </head>
-  <body class="highlights" data-access-token="<%= current_user.api_key.access_token %>">
+  <body class="highlights" data-access-token="<%= current_user&.api_key&.access_token %>">
 
     <!-- Bonus Container -->
     <div class="highlighted-bonus-container">
@@ -52,7 +54,7 @@
         <!-- Highlighted Stat -->
         <div class="highlighted-stat">
           <div class="highlighted-stat-title">Today's Bonuses</div>
-          <div class="highlighted-stat-number">14</div>
+          <div class="highlighted-stat-number"></div>
         </div>
 
         <!-- Highlighted Stat -->
@@ -61,35 +63,7 @@
           <div class="highlighted-stat-title">Recent Receivers</div>
 
           <!-- Bonus Recipients -->
-          <div class="highlighted-stat-recipients">
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-            <a class="highlighted-stat-recipient" href="#" style="display: inline-block">
-              <img class="highlighted-stat-recipient-avatar" src="https://bonusly-fog.s3.amazonaws.com/uploads/user/avatar/5665b7365a203f4a69000001/full_passport-photo.jpg">
-            </a>
-          </div>
+          <div class="highlighted-stat-recipients"></div>
 
         </div>
 

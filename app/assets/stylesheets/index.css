@@ -200,7 +200,7 @@ a {
 
 .highlighted-stat-recipient {
   float: left;
-  display: block;
+  display: inline-block;
   margin-top: 0.5em;
   margin-right: 0.5em; }
 .highlighted-stat-recipient:last-child {

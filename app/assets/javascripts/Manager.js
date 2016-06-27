@@ -1,33 +1,54 @@
 function Manager(dashboard) {
-  this.api = '';
-  this.params = '';
+  this.dashboard = dashboard;
+  this.api = dashboard.config.api_uri;
+  this.params = $.param({
+    access_token: dashboard.config.access_token,
+    limit: dashboard.config.bonus_limit
+  });
+
+  this.sub_managers = [new BonusManager(), new StatManager()];
 }
 
 Manager.prototype = {
-  
-  setup: function(dashboard) {
-    this.dashboard = dashboard
-  },
 
-  load: function(options) {
-    options = $.extend({
-      oncomplete: this.show(),
-      onfailure: this.loadFailure()
-    }, options);
-
+  load: function() {
     var manager = this;
+
     $.getJSON(this.api + '?' + this.params)
-        .done( this.onJSONComplete )
-        .fail( options.onfailure );
+        .done( function (data) {
+          $.each(manager.sub_managers, function(_, sub_manager) {
+            sub_manager.load(data);
+          });
+
+          manager.show_start();
+        })
+        .fail( manager.loadFailure );
   },
-  
-  onJSONComplete: function(data) { /* Handle JSON response */ },  
 
-  loadFailure: function() { /* Replace with loading icon and retry message. */ },
+  loadFailure: function() {
+    alert('Failed to load data!');
+  },
 
-  next: function() { /* Load next item */ },
+  show_start: function() {
+    this.show_on_load();
+    this.show_on_interval();
 
-  show: function() { /* Show current item */ },
+    if (this.show_process != undefined) clearInterval(this.show_process);
+    if (this.loading_process != undefined) clearInterval(this.loading_process);
 
-  helpers: {}
+    this.show_process = setInterval(this.show_on_interval.bind(this), this.dashboard.config.message_interval);
+    this.loading_process = setInterval(this.load.bind(this), this.dashboard.config.refresh_interval);
+  },
+
+  show_on_load: function() {
+    $.each(this.sub_managers, function(_, sub_manager) {
+      sub_manager.show_on_load();
+    });
+  },
+
+  show_on_interval: function() {
+    $.each(this.sub_managers, function(_, sub_manager) {
+      sub_manager.show_on_interval();
+    });
+  }
 };
