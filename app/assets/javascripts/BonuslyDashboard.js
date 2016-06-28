@@ -4,7 +4,7 @@ function BonuslyDashboard(options) {
     message_interval: Util.seconds(10),
     refresh_interval: Util.seconds(60),
     bonus_limit: '30',
-    api_uri: 'https://bonus.ly/api/v1/bonuses'
+    api_uri: '/api/v1/bonuses'
   };
 
   $.extend(this.config, options);
