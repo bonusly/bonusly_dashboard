@@ -1,12 +1,12 @@
 function Manager(dashboard) {
   this.dashboard = dashboard;
-  this.api = dashboard.config.api_uri;
+  this.api = dashboard.config.apiUri;
   this.params = $.param({
-    access_token: dashboard.config.access_token,
-    limit: dashboard.config.bonus_limit
+    access_token: dashboard.config.accessToken,
+    limit: dashboard.config.bonusLimit
   });
 
-  this.sub_managers = [new BonusManager(), new StatManager()];
+  this.subManagers = [new BonusManager(), new StatManager()];
 }
 
 Manager.prototype = {
@@ -18,11 +18,11 @@ Manager.prototype = {
         .done( function (data) {
           if (data.result.length == 0) manager.loadFailure();
 
-          $.each(manager.sub_managers, function(_, sub_manager) {
-            sub_manager.load(data);
+          $.each(manager.subManagers, function(_, subManager) {
+            subManager.load(data);
           });
 
-          manager.show_start();
+          manager.showStart();
         })
         .fail( manager.loadFailure );
   },
@@ -31,26 +31,26 @@ Manager.prototype = {
     alert('Failed to load data!');
   },
 
-  show_start: function() {
-    this.show_on_load();
-    this.show_on_interval();
+  showStart: function() {
+    this.showOnLoad();
+    this.showOnInterval();
 
-    if (this.show_process != undefined) clearInterval(this.show_process);
-    if (this.loading_process != undefined) clearInterval(this.loading_process);
+    if (this.showProcess != undefined) clearInterval(this.showProcess);
+    if (this.loadingProcess != undefined) clearInterval(this.loadingProcess);
 
-    this.show_process = setInterval(this.show_on_interval.bind(this), this.dashboard.config.message_interval);
-    this.loading_process = setInterval(this.load.bind(this), this.dashboard.config.refresh_interval);
+    this.showProcess = setInterval(this.showOnInterval.bind(this), this.dashboard.config.messageInterval);
+    this.loadingProcess = setInterval(this.load.bind(this), this.dashboard.config.refreshInterval);
   },
 
-  show_on_load: function() {
-    $.each(this.sub_managers, function(_, sub_manager) {
-      sub_manager.show_on_load();
+  showOnLoad: function() {
+    $.each(this.subManagers, function(_, subManager) {
+      subManager.showOnLoad();
     });
   },
 
-  show_on_interval: function() {
-    $.each(this.sub_managers, function(_, sub_manager) {
-      sub_manager.show_on_interval();
+  showOnInterval: function() {
+    $.each(this.subManagers, function(_, subManager) {
+      subManager.showOnInterval();
     });
   }
 };

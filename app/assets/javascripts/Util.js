@@ -1,6 +1,6 @@
 var Util = {
   
-  get_url_param: function(name) {
+  getUrlParam: function(name) {
     var result = '';
 
     var params = window.location.search.split('?')[1];
@@ -46,7 +46,7 @@ var Util = {
   
   seconds: function(seconds) { return seconds * 1000; },
   
-  days: function(days) { return 1000 * 60 * 60 * 24 },
+  days: function(days) { return days * 1000 * 60 * 60 * 24 },
 
   shuffle: function(arr) {
     for (var j, x, i = arr.length; i; j = Math.floor(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x) {}

@@ -12,11 +12,11 @@ BonusManager.prototype = {
     this.bonuses = Util.shuffle(this.bonuses);
   },
 
-  show_on_interval: function() {
+  showOnInterval: function() {
     var bonus = this.bonuses[this.currentBonus];
     this.currentBonus = (this.currentBonus + 1) % this.bonuses.length;
     bonus.show();  
   },
   
-  show_on_load: function() {}
+  showOnLoad: function() {}
 };

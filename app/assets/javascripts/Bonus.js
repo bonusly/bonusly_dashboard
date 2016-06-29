@@ -5,17 +5,17 @@ function Bonus(data) {
 Bonus.prototype = {
   show: function() {
     var bonus = this;
-    var bonus_container = $('.highlighted-bonus-container');
+    var $bonusContainer = $('.highlighted-bonus-container');
 
-    bonus_container.fadeOut(Util.seconds(1), function() {
+    $bonusContainer.fadeOut(Util.seconds(1), function() {
       bonus.showFamilyAmount();
       bonus.showRecipients();
       bonus.showReason();
       bonus.showTimestamp();
-      bonus_container.fadeIn(Util.seconds(2))
+      $bonusContainer.fadeIn(Util.seconds(2))
           .delay(Util.seconds(2.5))
           .animate({
-            scrollTop: bonus_container.height() - $('.highlighted-bonus').height()
+            scrollTop: $bonusContainer.height() - $('.highlighted-bonus').height()
           }, Util.seconds(5));
     });
   },

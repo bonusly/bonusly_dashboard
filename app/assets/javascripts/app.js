@@ -1,11 +1,11 @@
 $(document).ready(function() {
-  var access_token = Util.get_url_param('access_token');
+  var accessToken = Util.getUrlParam('access_token');
 
-  if (access_token == '') {
-    access_token = $('.highlights').data('access-token');
+  if (accessToken == '') {
+    accessToken = $('.highlights').data('access-token');
   }
 
-  var options = {access_token: access_token};
+  var options = {accessToken: accessToken};
 
   new BonuslyDashboard(options);
 });

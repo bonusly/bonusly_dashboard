@@ -1,15 +1,15 @@
 function BonuslyDashboard(options) {
   this.config = {
-    access_token: '',
-    message_interval: Util.seconds(10),
-    refresh_interval: Util.seconds(60),
-    bonus_limit: '30',
-    api_uri: '/api/v1/bonuses'
+    accessToken: '',
+    messageInterval: Util.seconds(10),
+    refreshInterval: Util.seconds(60),
+    bonusLimit: '30',
+    apiUri: '/api/v1/bonuses'
   };
 
   $.extend(this.config, options);
 
-  if (this.config.access_token) {
+  if (this.config.accessToken) {
     this.bonusManager = new Manager(this);
     this.bonusManager.load();
   } else {
