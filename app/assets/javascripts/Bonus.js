@@ -12,11 +12,7 @@ Bonus.prototype = {
       bonus.showRecipients();
       bonus.showReason();
       bonus.showTimestamp();
-      $bonusContainer.fadeIn(Util.seconds(2))
-          .delay(Util.seconds(2.5))
-          .animate({
-            scrollTop: $bonusContainer.height() - $('.highlighted-bonus').height()
-          }, Util.seconds(5));
+      $bonusContainer.fadeIn(Util.seconds(2));
     });
   },
   showFamilyAmount: function() {
@@ -47,6 +43,7 @@ Bonus.prototype = {
     $timestamp.attr('href', 'https://bonus.ly/bonuses/' + this.data.id);
   },
   highlightBonusAmount: function(text, amount) {
-    return text.replace('+' + amount, '<span class="highlighted-bonus-value">+' + amount + '</span>');
+    text.replace('+' + amount, '<span class="highlighted-bonus-value">+' + amount + '</span>');
+    return $.truncate(text, { length: 140, words: true })
   }
 };
