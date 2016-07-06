@@ -3,8 +3,9 @@ function BonuslyDashboard(options) {
     accessToken: '',
     messageInterval: Util.seconds(10),
     refreshInterval: Util.seconds(60),
-    bonusLimit: '30',
-    apiUri: '/api/v1/bonuses'
+    bonusLimit: '50',
+    apiUri: '/api/v1/bonuses',
+    analyticsApiUri: '/api/v1/analytics'
   };
 
   $.extend(this.config, options);

@@ -1,5 +1,12 @@
 function Manager(dashboard) {
   this.dashboard = dashboard;
+
+  this.analyticsApi = dashboard.config.analyticsApiUri;
+  this.analyticsParams = $.param({
+    access_token: dashboard.config.accessToken,
+    type: 'company/dashboard'
+  });
+
   this.api = dashboard.config.apiUri;
   this.params = $.param({
     access_token: dashboard.config.accessToken,
@@ -13,6 +20,8 @@ Manager.prototype = {
 
   load: function() {
     var manager = this;
+
+    $.getJSON(this.analyticsApi + '?' + this.analyticsParams);
 
     $.getJSON(this.api + '?' + this.params)
         .done( function (data) {
@@ -28,7 +37,8 @@ Manager.prototype = {
   },
 
   loadFailure: function() {
-    alert('Failed to load data!');
+    console.log('Failed to load data, retrying in 10 seconds.');
+    setTimeout(this.load, Util.seconds(5));
   },
 
   showStart: function() {

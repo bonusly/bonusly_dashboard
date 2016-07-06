@@ -40,10 +40,10 @@ a {
   font-size: 22.5px;
   font-size: 31.5px;
   font-size: 36px; }
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1000px) and (min-height: 900px) {
   .highlights {
     font-size: 45px; } }
-@media only screen and (min-width: 1500px) {
+@media only screen and (min-width: 1500px) and (min-height: 1150px) {
   .highlights {
     font-size: 54px; } }
 
@@ -150,7 +150,7 @@ a {
   display: -ms-flexbox;
   display: flex;
   box-shadow: 0 -0.05em 0.15em rgba(51, 51, 51, 0.1);
-  padding: 1em;
+  padding: .3em;
   background-color: #fff;
   color: #333; }
 

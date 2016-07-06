@@ -5,7 +5,9 @@ function BonusManager() {
 
 BonusManager.prototype = {
   load: function(data) {
-    this.bonuses = data.result.map(function(item) {
+    this.bonuses = $.grep(data.result, function(bonus, _) {
+      return (bonus.receivers.length <= 5 && bonus.reason_html.indexOf('img') == -1);
+    }).map(function(item) {
       return new Bonus(item);
     });
     
