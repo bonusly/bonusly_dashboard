@@ -4,7 +4,9 @@ function Manager(dashboard) {
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
     access_token: dashboard.config.accessToken,
-    type: 'company/dashboard'
+    category: 'dashboard',
+    type: 'fetch',
+    label: $('body').data('company-name')
   });
 
   this.api = dashboard.config.apiUri;

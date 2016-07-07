@@ -13,7 +13,9 @@
     <%= javascript_include_tag 'BonuslyDashboard.js' %>
     <%= javascript_include_tag 'app.js' %>
   </head>
-  <body class="highlights" data-access-token="<%= current_user&.api_key&.access_token %>">
+  <body class="highlights"
+        data-access-token="<%= current_user&.api_key&.access_token %>"
+        data-company-name="<%= current_user.company.name %>" >
 
     <!-- Bonus Container -->
     <div class="highlighted-bonus-container">
