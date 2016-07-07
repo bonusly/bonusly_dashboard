@@ -43,7 +43,7 @@ Bonus.prototype = {
     $timestamp.attr('href', 'https://bonus.ly/bonuses/' + this.data.id);
   },
   highlightBonusAmount: function(text, amount) {
-    text.replace('+' + amount, '<span class="highlighted-bonus-value">+' + amount + '</span>');
+    text = text.replace('+' + amount, '<span class="highlighted-bonus-value">+' + amount + '</span>');
     return $.truncate(text, { length: 140, words: true })
   }
 };
