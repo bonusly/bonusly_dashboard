@@ -35,15 +35,11 @@ Bonus.prototype = {
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
     $bonusAuthor.text(this.data.giver.display_name + ':');
-    $('#bonus-reason').html(this.highlightBonusAmount(reason, this.data.amount));
+    $('#bonus-reason').html($.truncate(reason, { length: 140, words: true }));
   },
   showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');
     $timestamp.text(Util.timeSince(new Date(this.data.created_at)) + ' ago');
     $timestamp.attr('href', 'https://bonus.ly/bonuses/' + this.data.id);
-  },
-  highlightBonusAmount: function(text, amount) {
-    text = text.replace('+' + amount, '<span class="highlighted-bonus-value">+' + amount + '</span>');
-    return $.truncate(text, { length: 140, words: true })
   }
 };
