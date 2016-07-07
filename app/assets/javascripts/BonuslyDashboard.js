@@ -5,7 +5,7 @@ function BonuslyDashboard(options) {
     refreshInterval: Util.seconds(60),
     bonusLimit: '50',
     apiUri: '/api/v1/bonuses',
-    analyticsApiUri: '/api/v1/analytics'
+    analyticsApiUri: '/api/v1/analytics/engagement/log_event'
   };
 
   $.extend(this.config, options);
