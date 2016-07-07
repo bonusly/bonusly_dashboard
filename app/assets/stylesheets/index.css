@@ -1,6 +1,5 @@
 body {
   width: 100%;
-  background-color: #f0f1f5;
   color: #333;
   font-size: 18px;
   font-family: "Open Sans", sans-serif;
@@ -36,7 +35,6 @@ a {
   height: 100%;
   width: 100%;
 	margin: 0;
-  background-color: #1ec659;
   font-size: 22.5px;
   font-size: 31.5px;
   font-size: 36px; }
@@ -85,7 +83,6 @@ a {
   height: 2.25em;
   border-radius: 0.25em;
   margin-right: 0.5em;
-  background-color: #1ec659;
   font-weight: bold;
   color: #fff;
   padding: 0 0.75em;
@@ -124,15 +121,12 @@ a {
   text-decoration: underline; }
 
 .highlighted-bonus-value {
-  color: #1ec659;
   font-weight: bold;
-  border: 0.1em solid #1ec659;
   border-radius: 0.25em;
   padding: 0 0.325em; }
 
 .highlighted-bonus-name, .user-link {
-  font-weight: bold;
-  color: #1ec659; }
+  font-weight: bold; }
 .highlighted-bonus-name:hover {
   text-decoration: underline; }
 
