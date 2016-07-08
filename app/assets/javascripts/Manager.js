@@ -23,7 +23,7 @@ Manager.prototype = {
   load: function() {
     var manager = this;
 
-    $.getJSON(this.analyticsApi + '?' + this.analyticsParams);
+    $.post(this.analyticsApi + '?' + this.analyticsParams);
 
     $.getJSON(this.api + '?' + this.params)
         .done( function (data) {
