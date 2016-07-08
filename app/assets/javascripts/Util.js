@@ -1,18 +1,15 @@
 var Util = {
   
-  getUrlParam: function(name) {
-    var result = '';
+  getUrlParams: function() {
+    var result = [];
 
     var params = window.location.search.split('?')[1];
-    if (params != undefined) {
-      params = params.split('&');
-    }
+    if (params == undefined) { return result; }
+    params = params.split('&');
 
     $.each(params, function(_, item) {
       item = item.split('=');
-      if (item[0] == name) {
-        result = item[1];
-      }
+      result[item[0]] = item[1];
     });
 
     return result;
@@ -45,6 +42,8 @@ var Util = {
   },
   
   seconds: function(seconds) { return seconds * 1000; },
+  
+  minutes: function(minutes) { return minutes * 1000 * 60; },
   
   days: function(days) { return days * 1000 * 60 * 60 * 24 },
 

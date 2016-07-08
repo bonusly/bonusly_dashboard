@@ -6,8 +6,8 @@
     <% theme_color = current_user.company.custom_theme.nil? ? '#f0f1f5' : current_user.company.custom_theme.brand %>
     <style type="text/css">
       body, .highlights, .highlighted-bonus-total-value { background-color: <%= theme_color %>; }
-      .highlighted-bonus-value, .highlighted-bonus-name, .user-link { color: <%= theme_color %>; }
-      .highlighted-bonus-value { border: 0.1em solid #1ec659; }
+      .inline-bonus-amount, .highlighted-bonus-name, .user-link { color: <%= theme_color %>; }
+      .inline-bonus-amount { border: 0.1em solid <%= theme_color %>; }
     </style>
     <%= javascript_include_tag 'jquery-1.12.4.min.js' %>
     <%= javascript_include_tag 'Util.js' %>

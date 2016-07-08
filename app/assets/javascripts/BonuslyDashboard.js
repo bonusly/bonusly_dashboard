@@ -2,7 +2,7 @@ function BonuslyDashboard(options) {
   this.config = {
     accessToken: '',
     messageInterval: Util.seconds(10),
-    refreshInterval: Util.seconds(60),
+    refreshInterval: Util.minutes(5),
     bonusLimit: '50',
     apiUri: '/api/v1/bonuses',
     analyticsApiUri: '/api/v1/integrations/ga_analytics/log_event'

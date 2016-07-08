@@ -1,11 +1,14 @@
 $(document).ready(function() {
-  var accessToken = Util.getUrlParam('access_token');
+  var urlParams = Util.getUrlParams();
+  var accessToken = urlParams['access_token'];
 
-  if (accessToken == '') {
+  if (accessToken == '' || accessToken == undefined) {
     accessToken = $('.highlights').data('access-token');
   }
 
-  var options = {accessToken: accessToken};
+  console.log(urlParams);
+
+  var options =   $.extend({accessToken: accessToken}, urlParams);
 
   new BonuslyDashboard(options);
 });
