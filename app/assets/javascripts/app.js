@@ -6,8 +6,6 @@ $(document).ready(function() {
     accessToken = $('.highlights').data('access-token');
   }
 
-  console.log(urlParams);
-
   var options =   $.extend({accessToken: accessToken}, urlParams);
 
   new BonuslyDashboard(options);

@@ -15,6 +15,8 @@ function Manager(dashboard) {
     limit: dashboard.config.bonusLimit
   });
 
+  $.post(this.analyticsApi + '?' + this.analyticsParams);
+
   this.subManagers = [new BonusManager(), new StatManager()];
 }
 
@@ -22,8 +24,6 @@ Manager.prototype = {
 
   load: function() {
     var manager = this;
-
-    $.post(this.analyticsApi + '?' + this.analyticsParams);
 
     $.getJSON(this.api + '?' + this.params)
         .done( function (data) {
