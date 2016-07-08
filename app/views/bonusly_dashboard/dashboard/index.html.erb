@@ -3,7 +3,7 @@
   <head>
     <title>Bonusly Dashboard</title>
     <%= stylesheet_link_tag 'index' %>
-    <% theme_color = current_user.company.custom_theme.nil? ? '#f0f1f5' : current_user.company.custom_theme.brand %>
+    <% theme_color = company_theme(current_user.company)[:brand] %>
     <style type="text/css">
       body, .highlights, .highlighted-bonus-total-value { background-color: <%= theme_color %>; }
       .inline-bonus-amount, .highlighted-bonus-name, .user-link { color: <%= theme_color %>; }
