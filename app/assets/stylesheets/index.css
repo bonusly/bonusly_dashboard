@@ -127,6 +127,9 @@ a {
   margin: 1em 0 0 0;
   line-height: 1.3em; }
 
+#bonus-reason > a[target='_blank']:hover {
+	text-decoration: underline; }
+
 .highlighted-bonus-author {
   font-weight: bold; }
 .highlighted-bonus-author:hover {
