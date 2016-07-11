@@ -20,7 +20,7 @@
     <%= stylesheet_link_tag 'index' %>
     <style type="text/css">
       body, .highlights, .highlighted-bonus-total-value { background-color: <%= theme_color %>; }
-      .inline-bonus-amount, .highlighted-bonus-name, .user-link { color: <%= theme_color %>; }
+      .inline-bonus-amount, .highlighted-bonus-name, .user-link, #bonus-reason > a[target='_blank'] { color: <%= theme_color %>; }
       .inline-bonus-amount { border: 0.1em solid <%= theme_color %>; }
     </style>
     <%= javascript_include_tag 'jquery-1.12.4.min.js' %>
@@ -38,7 +38,7 @@
         data-company-name="<%= company&.name %>" >
 
     <!-- Bonus Container -->
-    <div class="highlighted-bonus-container">
+    <div class="highlighted-bonus-container unloaded">
 
       <!-- Bonus -->
       <div class="highlighted-bonus does-zoom-in">

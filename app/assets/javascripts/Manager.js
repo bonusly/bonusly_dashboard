@@ -27,8 +27,8 @@ Manager.prototype = {
 
     $.getJSON(this.api + '?' + this.params)
         .done( function (data) {
-          if (data.result.length == 0) manager.loadFailure();
-
+          if (data.result.length == 0) return manager.loadFailure();
+          
           $.each(manager.subManagers, function(_, subManager) {
             subManager.load(data);
           });

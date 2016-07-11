@@ -12,6 +12,7 @@ Bonus.prototype = {
       bonus.showRecipients();
       bonus.showReason();
       bonus.showTimestamp();
+      $('.highlighted-bonus-container').removeClass('unloaded');
       $bonusContainer.fadeIn(Util.seconds(2));
     });
   },
