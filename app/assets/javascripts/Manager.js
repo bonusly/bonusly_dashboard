@@ -1,5 +1,7 @@
 function Manager(dashboard) {
   this.dashboard = dashboard;
+  
+  this.version = null;
 
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
@@ -24,6 +26,12 @@ Manager.prototype = {
 
   load: function() {
     var manager = this;
+    
+    $.get('/company/dashboard/version').done(function(data) {
+      console.log(data.message);
+      if (manager.version == null) manager.version = data.message;
+      else if (manager.version != data.message) location.reload();
+    });
 
     $.getJSON(this.api + '?' + this.params)
         .done( function (data) {

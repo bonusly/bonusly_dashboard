@@ -1,6 +1,7 @@
 PATH
   remote: .
   specs:
+    bonusly_dashboard (0.1.07)
 
 GEM
   remote: https://rubygems.org/
