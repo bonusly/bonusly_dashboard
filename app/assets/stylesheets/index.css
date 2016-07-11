@@ -64,7 +64,7 @@ a {
   margin: 0.5em; }
 
 .highlighted-bonus-container.unloaded {
-	background-image: url('/assets/spinner_64.gif');
+	background-image: url('spinner_64.gif');
 	background-repeat: no-repeat;
 	background-position: center; }
 
