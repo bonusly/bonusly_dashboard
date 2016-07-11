@@ -37,8 +37,11 @@
         data-access-token="<%= access_token %>"
         data-company-name="<%= company&.name %>" >
 
+
     <!-- Bonus Container -->
     <div class="highlighted-bonus-container unloaded">
+
+      <%= image_tag('spinner_64.gif', class: 'loading-spinner') %>
 
       <!-- Bonus -->
       <div class="highlighted-bonus does-zoom-in">

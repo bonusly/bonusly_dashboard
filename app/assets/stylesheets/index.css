@@ -63,13 +63,17 @@ a {
 	overflow: hidden;
   margin: 0.5em; }
 
-.highlighted-bonus-container.unloaded {
-	background-image: url('spinner_64.gif');
-	background-repeat: no-repeat;
-	background-position: center; }
+.highlighted-bonus-container.unloaded > .loading-spinner {
+	display: block; }
 
 .highlighted-bonus-container.unloaded > .highlighted-bonus {
 	display: none; }
+
+.loading-spinner {
+	display: none;
+	margin: 8em auto 0;
+	width: 1em;
+	height: 1em; }
 
 .highlighted-bonus {
   max-width: 1400px;
