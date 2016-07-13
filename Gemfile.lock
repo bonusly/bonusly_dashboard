@@ -2,10 +2,14 @@ PATH
   remote: .
   specs:
     bonusly_dashboard (0.1.09)
+      font-awesome-sass (>= 4.6.2)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    font-awesome-sass (4.6.2)
+      sass (>= 3.2)
+    sass (3.4.22)
 
 PLATFORMS
   ruby

@@ -10,4 +10,6 @@ Gem::Specification.new do |s|
   # s.files       = `git ls-files -- app/*`.split("\n") + ['lib/bonusly_dashboard.rb']
   s.homepage    = 'https://bonus.ly'
   s.license     = 'MIT'
+  s.add_runtime_dependency 'font-awesome-sass', ['>= 4.6.2']
+  s.require_paths = ['lib']
 end
