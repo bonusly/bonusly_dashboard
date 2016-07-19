@@ -7,7 +7,7 @@ function Manager(dashboard) {
   this.analyticsParams = $.param({
     access_token: dashboard.config.accessToken,
     category: 'dashboard',
-    type: 'fetch',
+    event: 'fetch',
     label: $('body').data('company-name')
   });
 
