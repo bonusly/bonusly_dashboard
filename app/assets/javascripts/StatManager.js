@@ -1,46 +1,48 @@
-function StatManager() {
-  this.todaysBonuses = 0;
-  this.recentReceivers = [];
+function StatManager(parent) {
+  this.parent = parent;
+
+  this.statApi = parent.dashboard.config.statApiUri;
+  this.statParams = $.param({
+    access_token: parent.dashboard.config.accessToken
+  });
+
+  this.curStatNumber = 0;
+  this.stats = [];
 }
 
 StatManager.prototype = {
-  load: function(data) {
+  load: function() {
+    var self = this;
     this.todaysBonuses = 0;
     this.recentReceivers = [];
 
-    var receiverIDs = [];
-    var statManager = this;
-    $.each(data.result, function(_, item) {
-      if (Date.parse(item.created_at) >= (Date.now() - Util.days(1))) {
-        statManager.todaysBonuses++;
+    $.getJSON( this.statApi + '?' + this.statParams )
+        .done( function(data) {
+          if (data.result.length == 0) return self.loadFailure();
 
-        $.each(item.receivers, function (_, receiver) {
-          if ($.inArray(receiver.id, receiverIDs) == -1) {
-            receiverIDs.push(receiver.id);
-            statManager.recentReceivers.push(new Receiver(receiver));
-          }
-        });
+          self.stats = $.grep($.map(data.result, function(item) {return new Stat(item)}), function(stat, _) {
+            return stat.data != null;
+          });
 
-      }
-    });
+          self.parent.handleCallbackSuccess();
+        }).fail( self.loadFailure );
+  },
 
-    this.recentReceivers.slice(0, 12);
+  loadFailure: function() {
+    console.log('Failed to stat data, retrying in 10 seconds.');
+    this.parent.handleCallbackFailure();
   },
 
   showOnInterval: function() {},
   
   showOnLoad: function() {
-    var $receiverContainer = $('.highlighted-stat-recipients');
-    var recentReceivers = this.recentReceivers;
+    var count = 0;
 
-    $receiverContainer.fadeOut(Util.seconds(1), function() {
-      $receiverContainer.html('');
-      $.each(recentReceivers, function(_, receiver) {
-        receiver.show();
-      });
-      $receiverContainer.fadeIn(Util.seconds(2));
-    });
-    
-    $('.highlighted-stat-number').html(this.todaysBonuses);
+    while ($('.highlighted-stats').find('> div').length < 2 && count < 2) {
+      count++;
+      this.stats[this.curStatNumber].show();
+      this.curStatNumber++;
+      if (this.curStatNumber == this.stats.length) this.curStatNumber = 0;
+    }
   }
 };

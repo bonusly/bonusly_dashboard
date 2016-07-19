@@ -36,7 +36,7 @@ Bonus.prototype = {
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
     $bonusAuthor.text(this.data.giver.display_name + ':');
-    $('#bonus-reason').html($.truncate(reason, { length: 140, words: true }));
+    $('#bonus-reason').html(reason);
   },
   showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');

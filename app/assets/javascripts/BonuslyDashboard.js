@@ -4,7 +4,8 @@ function BonuslyDashboard(options) {
     messageInterval: Util.seconds(10),
     refreshInterval: Util.minutes(5),
     bonusLimit: '50',
-    apiUri: '/api/v1/bonuses',
+    bonusApiUri: '/api/v1/bonuses',
+    statApiUri: '/api/v1/stats',
     analyticsApiUri: '/api/v1/instrumentation/events',
     versionApiUri: '/api/v1/version'
   };

@@ -30,7 +30,7 @@
     <%= javascript_include_tag 'jquery-1.12.4.min.js' %>
     <%= javascript_include_tag 'Util.js' %>
     <%= javascript_include_tag 'Bonus.js' %>
-    <%= javascript_include_tag 'Receiver.js' %>
+    <%= javascript_include_tag 'Stat.js' %>
     <%= javascript_include_tag 'StatManager.js' %>
     <%= javascript_include_tag 'BonusManager.js' %>
     <%= javascript_include_tag 'Manager.js' %>
@@ -78,25 +78,7 @@
     <div class="highlighted-stats-container">
 
       <!-- Highlighted Stats -->
-      <div class="highlighted-stats">
-
-        <!-- Highlighted Stat -->
-        <div class="highlighted-stat">
-          <div class="highlighted-stat-title">Today's Bonuses</div>
-          <div class="highlighted-stat-number"></div>
-        </div>
-
-        <!-- Highlighted Stat -->
-        <div class="highlighted-stat">
-
-          <div class="highlighted-stat-title">Recent Receivers</div>
-
-          <!-- Bonus Recipients -->
-          <div class="highlighted-stat-recipients"></div>
-
-        </div>
-
-      </div>
+      <div class="highlighted-stats"></div>
     </div>
   </body>
 </html>

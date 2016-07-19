@@ -2,6 +2,7 @@ function Manager(dashboard) {
   this.dashboard = dashboard;
   
   this.version = null;
+  this.callback_count = null;
 
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
@@ -11,44 +12,39 @@ function Manager(dashboard) {
     label: $('body').data('company-name')
   });
 
-  this.api = dashboard.config.apiUri;
-  this.params = $.param({
-    access_token: dashboard.config.accessToken,
-    limit: dashboard.config.bonusLimit
-  });
-
-  $.post(this.analyticsApi + '?' + this.analyticsParams);
-
-  this.subManagers = [new BonusManager(), new StatManager()];
+  this.subManagers = {bonus: new BonusManager(this), stat: new StatManager(this)};
 }
 
 Manager.prototype = {
 
   load: function() {
-    var manager = this;
-    
+    var self = this;
+
+    $.post(this.analyticsApi + '?' + this.analyticsParams);
+
     $.get('/company/dashboard/version').done(function(data) {
       console.log(data.message);
-      if (manager.version == null) manager.version = data.message;
-      else if (manager.version != data.message) location.reload();
+      if (self.version == null) self.version = data.message;
+      else if (self.version != data.message) location.reload();
     });
 
-    $.getJSON(this.api + '?' + this.params)
-        .done( function (data) {
-          if (data.result.length == 0) return manager.loadFailure();
-          
-          $.each(manager.subManagers, function(_, subManager) {
-            subManager.load(data);
-          });
-
-          manager.showStart();
-        })
-        .fail( manager.loadFailure );
+    this.callback_count = Object.keys(this.subManagers).length;
+    $.each(this.subManagers, function(_, subManager) {
+      subManager.load()
+    });
   },
 
-  loadFailure: function() {
-    console.log('Failed to load data, retrying in 10 seconds.');
-    setTimeout(this.load, Util.seconds(5));
+  handleCallbackSuccess: function() {
+    this.callback_count--;
+
+    if (this.callback_count == 0) {
+      this.showStart();
+    }
+  },
+
+  handleCallbackFailure: function() {
+    this.callback_count = Infinity;
+    setTimeout(this.load, Util.seconds(10));
   },
 
   showStart: function() {
