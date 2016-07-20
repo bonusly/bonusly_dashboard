@@ -25,7 +25,7 @@ BonusManager.prototype = {
 
           self.bonuses = Util.shuffle(self.bonuses);
 
-          self.parent.handleCallbackSuccess();
+          self.parent.handleCallbackSuccess('bonuses', data);
         }).fail( self.loadFailure );
   },
 

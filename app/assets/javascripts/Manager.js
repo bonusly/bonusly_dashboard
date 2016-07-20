@@ -13,6 +13,8 @@ function Manager(dashboard) {
   });
 
   this.subManagers = {bonus: new BonusManager(this), stat: new StatManager(this)};
+
+  this.callback_response = {};
 }
 
 Manager.prototype = {
@@ -34,7 +36,9 @@ Manager.prototype = {
     });
   },
 
-  handleCallbackSuccess: function() {
+  handleCallbackSuccess: function(id, data) {
+    this.callback_response[id] = data;
+
     this.callback_count--;
 
     if (this.callback_count == 0) {
