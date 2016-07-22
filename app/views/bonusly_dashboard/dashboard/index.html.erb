@@ -45,7 +45,8 @@
     <!-- Bonus Container -->
     <div class="highlighted-bonus-container unloaded">
 
-      <div class="fa fa-refresh fa-spin"></div>
+      <% spinner_icon = ['fa-refresh', 'fa-spinner', 'fa-universal-access', 'fa-plane', 'fa-square-o'].sample %>
+      <div class="fa <%= spinner_icon %> fa-spin"></div>
 
       <!-- Bonus -->
       <div class="highlighted-bonus does-zoom-in">
