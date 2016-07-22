@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bonusly_dashboard (0.1.25)
+    bonusly_dashboard (0.1.26)
       font-awesome-sass (>= 4.6.2)
 
 GEM

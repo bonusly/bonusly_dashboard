@@ -13,7 +13,7 @@ module BonuslyDashboard
         Stat.js
         StatManager.js
         Util.js
-        index.sass
+        index.css
         jquery-1.12.4.min.js
       )
     end
