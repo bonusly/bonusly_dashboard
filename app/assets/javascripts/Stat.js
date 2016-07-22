@@ -16,7 +16,6 @@ function Stat(data) {
         $.each(data, function(_, bonus) {
           $.each(bonus.receivers, function(_, receiver) {
             if (added_receiver_ids.indexOf(receiver.id) == -1) {
-              console.log(receiver);
               added_receiver_ids.push(receiver.id);
               receivers_data.push(
                   $('<div>', {class: 'highlighted-stat-recipient', href: receiver.path})
