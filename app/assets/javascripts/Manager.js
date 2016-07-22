@@ -2,7 +2,10 @@ function Manager(dashboard) {
   this.dashboard = dashboard;
   
   this.version = null;
+
+  this.callback_set_id = null;
   this.callback_count = null;
+  this.callback_response = {};
 
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
@@ -12,9 +15,23 @@ function Manager(dashboard) {
     label: $('body').data('company-name')
   });
 
-  this.subManagers = {bonus: new BonusManager(this), stat: new StatManager(this)};
+  this.dataApis = {
+    stats: {
+        uri: dashboard.config.statApiUri,
+        params: $.param({
+          access_token: dashboard.config.accessToken,
+          duration: 86400,
+          'fields[type]': 'count_bonuses'
+        })},
+    bonuses: {
+        uri: dashboard.config.bonusApiUri,
+        params: $.param({
+          access_token: dashboard.config.accessToken,
+          limit: dashboard.config.bonusLimit
+        })}
+  };
 
-  this.callback_response = {};
+  this.subManagers = {bonus: new BonusManager(this), stat: new StatManager(this)};
 }
 
 Manager.prototype = {
@@ -30,25 +47,43 @@ Manager.prototype = {
       else if (self.version != data.message) location.reload();
     });
 
+    var callback_set_id = this.callback_set_id = Math.floor(Math.random() * 10e10);
     this.callback_count = Object.keys(this.subManagers).length;
-    $.each(this.subManagers, function(_, subManager) {
-      subManager.load()
+
+    $.each(this.dataApis, function(type, apiData) {
+      $.getJSON( apiData.uri + '?' + apiData.params )
+          .done( function(data) {
+            if (data.success == false) return self.handleCallbackFailure(type);
+
+            self.handleCallbackSuccess(type, data, callback_set_id);
+          }).fail( function() { self.handleCallbackFailure(type) } );
     });
   },
 
-  handleCallbackSuccess: function(id, data) {
+  handleCallbackSuccess: function(id, data, callback_set_id) {
+    if (callback_set_id != this.callback_set_id) { return false; }
+
     this.callback_response[id] = data;
 
     this.callback_count--;
 
     if (this.callback_count == 0) {
+      $.each(this.subManagers, function(_, instance) { instance.build() });
+
       this.showStart();
     }
   },
 
-  handleCallbackFailure: function() {
-    this.callback_count = Infinity;
-    setTimeout(this.load, Util.seconds(10));
+  handleCallbackFailure: function(type) {
+    console.log('Failed to load ' + type + ' data, retrying in 10 seconds');
+
+    if (this.callback_set_id != null) {
+      this.callback_set_id = null;
+      this.callback_count = Infinity;
+
+      var self = this;
+      setTimeout(function() { self.load() }, Util.seconds(10));
+    }
   },
 
   showStart: function() {

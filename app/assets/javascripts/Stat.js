@@ -1,6 +1,6 @@
 function Stat(data) {
   this.STAT_TYPES = {
-    todays_bonuses: {
+    count_bonuses_86400: {
       title: 'Today\'s Bonuses',
       html_class: 'highlighted-stat-number',
       html: function(data) {
@@ -10,10 +10,23 @@ function Stat(data) {
       title: 'Recent Receivers',
       html_class: 'highlighted-stat-recipients',
       html: function(data) {
-        var receivers = data.receivers.filter(function(value, index, self) { return self.indexOf(value) === index });
-        return $.map(receivers, function(receiver) {
-          return $('<div>', {class: 'highlighted-stat-recipient', href: receiver.path})
-              .append('<img class="highlighted-stat-recipient-avatar" src="' +receiver.full_pic_url +'" />')})},
+        var added_receiver_ids = [];
+        var receivers_data = [];
+
+        $.each(data, function(_, bonus) {
+          $.each(bonus.receivers, function(_, receiver) {
+            if (added_receiver_ids.indexOf(receiver.id) == -1) {
+              console.log(receiver);
+              added_receiver_ids.push(receiver.id);
+              receivers_data.push(
+                  $('<div>', {class: 'highlighted-stat-recipient', href: receiver.path})
+                      .append('<img class="highlighted-stat-recipient-avatar" src="' + receiver.profile_pic_url +'" />'))
+            }
+          });
+        });
+
+        return receivers_data;
+      },
       params: {previous_hours: 24}}
   };
 
