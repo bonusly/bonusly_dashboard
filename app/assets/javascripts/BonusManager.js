@@ -21,7 +21,7 @@ BonusManager.prototype = {
   showOnInterval: function() {
     var bonus = this.bonuses[this.currentBonus];
     this.currentBonus = (this.currentBonus + 1) % this.bonuses.length;
-    bonus.show();  
+    if (bonus != undefined) bonus.show();
   },
   
   showOnLoad: function() {}
