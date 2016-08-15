@@ -1,6 +1,6 @@
 function Stat(data) {
   this.STAT_TYPES = {
-    todays_bonuses_0: {
+    count_bonuses: {
       title: 'Today\'s Bonuses',
       html_class: 'highlighted-stat-number',
       html: function(data) {

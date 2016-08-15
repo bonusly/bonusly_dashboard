@@ -15,12 +15,15 @@ function Manager(dashboard) {
     label: $('body').data('company-name')
   });
 
+  var timeSinceDayStart = (new Date().getTime() - new Date().setHours(0,0,0,0)) / 1000;
+
   this.dataApis = {
     stats: {
         uri: dashboard.config.statApiUri,
         params: $.param({
           access_token: dashboard.config.accessToken,
-          'fields[type]': 'todays_bonuses'
+          duration: timeSinceDayStart,
+          'fields[type]': 'count_bonuses'
         })},
     bonuses: {
         uri: dashboard.config.bonusApiUri,
