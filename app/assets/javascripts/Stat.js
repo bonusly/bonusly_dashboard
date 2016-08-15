@@ -1,11 +1,11 @@
 function Stat(data) {
   this.STAT_TYPES = {
-    count_bonuses_86400: {
+    todays_bonuses_0: {
       title: 'Today\'s Bonuses',
       html_class: 'highlighted-stat-number',
       html: function(data) {
         return data.count },
-      params: {duration: Util.days(1) / 1000, fields: {type: 'count_bonuses'}} },
+      params: {duration: Util.days(1) / 1000, fields: {type: 'todays_bonuses_0'}} },
     recent_receivers: {
       title: 'Recent Receivers',
       html_class: 'highlighted-stat-recipients',

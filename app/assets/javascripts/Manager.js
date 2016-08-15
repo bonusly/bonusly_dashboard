@@ -20,8 +20,7 @@ function Manager(dashboard) {
         uri: dashboard.config.statApiUri,
         params: $.param({
           access_token: dashboard.config.accessToken,
-          duration: 86400,
-          'fields[type]': 'count_bonuses'
+          'fields[type]': 'todays_bonuses'
         })},
     bonuses: {
         uri: dashboard.config.bonusApiUri,
