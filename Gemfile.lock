@@ -3,6 +3,7 @@ PATH
   specs:
     bonusly_dashboard (0.1.29)
       font-awesome-sass (>= 4.6.2)
+      secure_headers
 
 GEM
   remote: https://rubygems.org/
@@ -10,6 +11,9 @@ GEM
     font-awesome-sass (4.6.2)
       sass (>= 3.2)
     sass (3.4.22)
+    secure_headers (3.5.0)
+      useragent
+    useragent (0.16.8)
 
 PLATFORMS
   ruby
