@@ -4,6 +4,7 @@ module BonuslyDashboard
     after_filter :allow_iframe, only: :index
 
     def index
+      override_x_frame_options('ALLOW-FROM *')
       render layout: false
     end
 
