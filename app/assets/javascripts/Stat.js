@@ -17,7 +17,6 @@ function Stat(data) {
           $.each(bonus.receivers, function(_, receiver) {
             if (added_receiver_ids.indexOf(receiver.id) == -1) {
               added_receiver_ids.push(receiver.id);
-              if (receiver.short_name == 'Carlton (removed)') console.log(bonus);
               receivers_data.push(
                   $('<div>', {class: 'highlighted-stat-recipient', href: receiver.path})
                       .append('<img class="highlighted-stat-recipient-avatar" src="' + receiver.profile_pic_url +'" />'))
