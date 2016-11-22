@@ -55,7 +55,7 @@ var Util = {
   useBonus: function(bonus) {
     return (bonus.receivers.length <= 5 &&
             bonus.reason_html.indexOf('<img') == -1 &&
-            Util.getLength(bonus) <= 140);
+            Util.getLength(bonus) <= 200);
   },
 
   getLength: function(bonus) {

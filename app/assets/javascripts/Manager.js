@@ -23,13 +23,15 @@ function Manager(dashboard) {
         params: $.param({
           access_token: dashboard.config.accessToken,
           duration: timeSinceDayStart,
-          'fields[type]': 'count_bonuses'
+          'fields[type]': 'count_bonuses',
+          exclude_archived: true
         })},
     bonuses: {
         uri: dashboard.config.bonusApiUri,
         params: $.param({
           access_token: dashboard.config.accessToken,
-          limit: dashboard.config.bonusLimit
+          limit: dashboard.config.bonusLimit,
+          exclude_archived: true
         })}
   };
 
