@@ -1,5 +1,6 @@
 <%
-  access_token = current_user.nil? ? params[:access_token] : current_user.api_key.access_token
+  access_token = params[:access_token].presence || current_user&.api_key&.access_token
+  raise 'No access token provided' unless access_token.present?
   api_key = ApiKey.where(access_token: access_token).first
 
   company = nil
