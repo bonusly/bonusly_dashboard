@@ -1,18 +1,3 @@
-<%
-  access_token = current_user.nil? ? params[:access_token] : current_user.api_key.access_token
-  api_key = ApiKey.where(access_token: access_token).first
-
-  company = nil
-  if api_key&.api_authenticatable.is_a?(Company)
-    company = api_key.api_authenticatable
-  elsif api_key&.api_authenticatable.is_a?(User) && api_key.api_authenticatable.active?
-    company = api_key.api_authenticatable.company
-  end
-
-  theme_color = company.nil? ? BONUSLY::THEMES['dark']['brand'] : company_theme(company)[:brand]
-%>
-
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,9 +5,9 @@
     <%= stylesheet_link_tag 'index' %>
 
     <style type="text/css">
-      body, .highlights, .highlighted-bonus-total-value { background-color: <%= theme_color %>; }
-      .inline-bonus-amount, .highlighted-bonus-name, .user-link, #bonus-reason > a[target='_blank'] { color: <%= theme_color %>; }
-      .inline-bonus-amount { border: 0.1em solid <%= theme_color %>; }
+      body, .highlights, .highlighted-bonus-total-value { background-color: <%= @theme_color %>; }
+      .inline-bonus-amount, .highlighted-bonus-name, .user-link, #bonus-reason > a[target='_blank'] { color: <%= @theme_color %>; }
+      .inline-bonus-amount { border: 0.1em solid <%= @theme_color %>; }
     </style>
     <%= javascript_include_tag 'jquery-1.12.4.min.js' %>
     <%= javascript_include_tag 'Util.js' %>
@@ -35,8 +20,8 @@
     <%= javascript_include_tag 'app.js' %>
   </head>
   <body class="highlights"
-        data-access-token="<%= access_token %>"
-        data-company-name="<%= company&.name %>" >
+        data-access-token="<%= @access_token %>"
+        data-company-name="<%= @company&.name %>" >
 
 
     <!-- Bonus Container -->
