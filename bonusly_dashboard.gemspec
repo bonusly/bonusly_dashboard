@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'bonusly_dashboard'
-  s.version     = '0.1.32'
+  s.version     = '0.1.33'
   s.date        = '2016-11-29'
   s.summary     = 'Bonusly Dashboard'
   s.description = 'A simple dashboard for displaying recent Bonusly highlights'

@@ -1,11 +1,10 @@
 module BonuslyDashboard
   class DashboardController < ApplicationController
     skip_after_filter :intercom_rails_auto_include
-    after_filter :allow_iframe, only: :index
     before_filter :ensure_api_key, only: :index
 
     def index
-      override_x_frame_options('ALLOW-FROM *')
+      override_x_frame_options('ALLOWALL')
 
       @access_token = access_token
       @company      = company
@@ -45,10 +44,6 @@ module BonuslyDashboard
 
     def ensure_api_key
       render text: 'Invalid access token provided', status: 401 unless api_key.present?
-    end
-
-    def allow_iframe
-      response.headers.except! 'X-Frame-Options'
     end
   end
 end
