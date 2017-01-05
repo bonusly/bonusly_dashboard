@@ -1,17 +1,17 @@
 PATH
   remote: .
   specs:
-    bonusly_dashboard (0.1.31)
+    bonusly_dashboard (0.1.32)
       font-awesome-sass (>= 4.6.2)
       secure_headers
 
 GEM
   remote: https://rubygems.org/
   specs:
-    font-awesome-sass (4.6.2)
+    font-awesome-sass (4.7.0)
       sass (>= 3.2)
     sass (3.4.22)
-    secure_headers (3.5.0)
+    secure_headers (3.5.1)
       useragent
     useragent (0.16.8)
 
