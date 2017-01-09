@@ -3,6 +3,7 @@
   <head>
     <title>Bonusly Dashboard</title>
     <meta http-equiv="X-Frame-Options" content="allow">
+    <base target="_blank">
     <%= stylesheet_link_tag 'index' %>
 
     <style type="text/css">
@@ -23,7 +24,6 @@
   <body class="highlights"
         data-access-token="<%= @access_token %>"
         data-company-name="<%= @company&.name %>" >
-
 
     <!-- Bonus Container -->
     <div class="highlighted-bonus-container unloaded">
