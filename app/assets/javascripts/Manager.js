@@ -31,7 +31,8 @@ function Manager(dashboard) {
         params: $.param({
           access_token: dashboard.config.accessToken,
           limit: dashboard.config.bonusLimit,
-          exclude_archived: true
+          exclude_archived: true,
+          start_time: this.bonusesStartDate()
         })}
   };
 
@@ -111,5 +112,11 @@ Manager.prototype = {
     $.each(this.subManagers, function(_, subManager) {
       subManager.showOnInterval();
     });
+  },
+
+  bonusesStartDate: function() {
+    var now = new Date();
+    now.setDate(now.getDate() - 14 /* days */);
+    return now
   }
 };
