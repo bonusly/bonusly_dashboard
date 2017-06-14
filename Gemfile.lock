@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bonusly_dashboard (0.1.33)
+    bonusly_dashboard (0.1.34)
       font-awesome-sass (>= 4.6.2)
       secure_headers
 
@@ -10,8 +10,8 @@ GEM
   specs:
     font-awesome-sass (4.7.0)
       sass (>= 3.2)
-    sass (3.4.22)
-    secure_headers (3.5.1)
+    sass (3.4.23)
+    secure_headers (3.6.2)
       useragent
     useragent (0.16.8)
 
@@ -22,4 +22,4 @@ DEPENDENCIES
   bonusly_dashboard!
 
 BUNDLED WITH
-   1.12.5
+   1.13.7
