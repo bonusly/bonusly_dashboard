@@ -22,13 +22,19 @@ module BonuslyDashboard
     end
 
     def data
-      render json: {
-        stats: stats,
-        bonuses: bonuses
-      }
+      render json: data_json
     end
 
     private
+
+    def data_json
+      Rails.cache.fetch("dashboard-data-#{params[:access_token]}", expires_in: 5.minutes) do
+        {
+          stats: stats,
+          bonuses: bonuses
+        }
+      end
+    end
 
     def stats
       Stats.new(base_url: request.base_url, params: params).as_json
