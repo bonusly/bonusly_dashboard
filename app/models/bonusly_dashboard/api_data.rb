@@ -6,15 +6,25 @@ module BonuslyDashboard
     end
 
     def as_json
-      JSON.parse(response)
+      parsed_response
+    end
+
+    def success?
+      parsed_response.present? && parsed_response['error'].blank?
     end
 
     private
 
     attr_accessor :base_url, :params
 
+    def parsed_response
+      @parsed_response ||= JSON.parse(response)
+    rescue JSON::ParserError
+      nil
+    end
+
     def response
-      Net::HTTP.get(url)
+      @response ||= Net::HTTP.get(url)
     end
 
     def url

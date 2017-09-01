@@ -30,18 +30,23 @@ module BonuslyDashboard
     def data_json
       Rails.cache.fetch("dashboard-data-#{params[:access_token]}", expires_in: 5.minutes) do
         {
-          stats: stats,
-          bonuses: bonuses
+          success: success?,
+          stats: stats.as_json,
+          bonuses: bonuses.as_json
         }
       end
     end
 
+    def success?
+      [stats, bonuses].all?(&:success?)
+    end
+
     def stats
-      Stats.new(base_url: request.base_url, params: params).as_json
+      @stats ||= Stats.new(base_url: request.base_url, params: params)
     end
 
     def bonuses
-      Bonuses.new(base_url: request.base_url, params: params).as_json
+      @bonuses ||= Bonuses.new(base_url: request.base_url, params: params)
     end
 
     def access_token
