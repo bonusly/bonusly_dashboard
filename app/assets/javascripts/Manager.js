@@ -1,11 +1,12 @@
 function Manager(dashboard) {
   this.dashboard = dashboard;
-  
+
   this.version = null;
 
   this.callback_set_id = null;
   this.callback_count = null;
   this.callback_response = {};
+  this.failure_count = 0;
 
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
@@ -17,26 +18,14 @@ function Manager(dashboard) {
 
   var timeSinceDayStart = (new Date().getTime() - new Date().setHours(0,0,0,0)) / 1000;
 
-  this.dataApis = {
-    stats: {
-        uri: dashboard.config.statApiUri,
-        params: $.param({
-          access_token: dashboard.config.accessToken,
-          duration: timeSinceDayStart,
-          'fields[type]': 'count_bonuses',
-          exclude_archived: true
-        })},
-    bonuses: {
-        uri: dashboard.config.bonusApiUri,
-        params: $.param({
-          access_token: dashboard.config.accessToken,
-          limit: dashboard.config.bonusLimit,
-          exclude_archived: true,
-          start_time: this.bonusesStartDate()
-        })}
-  };
+  this.dataParams = $.param({
+    access_token: dashboard.config.accessToken,
+    duration: timeSinceDayStart,
+    limit: dashboard.config.bonusLimit,
+    start_time: this.bonusesStartDate()
+  });
 
-  this.subManagers = {bonus: new BonusManager(this), stat: new StatManager(this)};
+  this.subManagers = { bonus: new BonusManager(this), stat: new StatManager(this) };
 }
 
 Manager.prototype = {
@@ -46,8 +35,7 @@ Manager.prototype = {
 
     $.post(this.analyticsApi + '?' + this.analyticsParams);
 
-    $.get('/company/dashboard/version').done(function(data) {
-      console.log(data.message);
+    $.get(this.dashboard.config.versionApiUri).done(function(data) {
       if (self.version == null) self.version = data.message;
       else if (self.version != data.message) location.reload();
     });
@@ -55,39 +43,37 @@ Manager.prototype = {
     var callback_set_id = this.callback_set_id = Math.floor(Math.random() * 10e10);
     this.callback_count = Object.keys(this.subManagers).length;
 
-    $.each(this.dataApis, function(type, apiData) {
-      $.getJSON( apiData.uri + '?' + apiData.params )
-          .done( function(data) {
-            if (data.success == false) return self.handleCallbackFailure(type);
+    $.getJSON( '/company/dashboard/data?' + this.dataParams )
+        .done( function(data) {
+          if (data.success == false) return self.handleCallbackFailure();
 
-            self.handleCallbackSuccess(type, data, callback_set_id);
-          }).fail( function() { self.handleCallbackFailure(type) } );
-    });
+          self.handleCallbackSuccess(data, callback_set_id);
+        }).fail( function() { self.handleCallbackFailure() } );
   },
 
-  handleCallbackSuccess: function(id, data, callback_set_id) {
+  handleCallbackSuccess: function(data, callback_set_id) {
     if (callback_set_id != this.callback_set_id) { return false; }
 
-    this.callback_response[id] = data;
+    this.callback_response['bonuses'] = data.bonuses;
+    this.callback_response['stats'] = data.stats;
 
-    this.callback_count--;
+    $.each(this.subManagers, function(_, instance) { instance.build() });
 
-    if (this.callback_count == 0) {
-      $.each(this.subManagers, function(_, instance) { instance.build() });
-
-      this.showStart();
-    }
+    this.showStart();
   },
 
-  handleCallbackFailure: function(type) {
-    console.log('Failed to load ' + type + ' data, retrying in 10 seconds');
+  handleCallbackFailure: function() {
+    this.failure_count += 1;
+
+    var waitTime = this.failure_count + 10;
+    console.log('Failed to load data, retrying in ' + waitTime + ' seconds');
 
     if (this.callback_set_id != null) {
       this.callback_set_id = null;
       this.callback_count = Infinity;
 
       var self = this;
-      setTimeout(function() { self.load() }, Util.seconds(10));
+      setTimeout(function() { self.load() }, Util.seconds(waitTime));
     }
   },
 
