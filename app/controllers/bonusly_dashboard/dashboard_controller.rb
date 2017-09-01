@@ -21,7 +21,22 @@ module BonuslyDashboard
       render json: response
     end
 
+    def data
+      render json: {
+        stats: stats,
+        bonuses: bonuses
+      }
+    end
+
     private
+
+    def stats
+      Stats.new(base_url: request.base_url, params: params).as_json
+    end
+
+    def bonuses
+      Bonuses.new(base_url: request.base_url, params: params).as_json
+    end
 
     def access_token
       @access_token ||= params[:access_token].presence || current_user&.api_key&.access_token
