@@ -14,11 +14,40 @@ module BonuslyDashboard
     end
 
     def version
-      response = {status: :ok, message: Gem.loaded_specs['bonusly_dashboard'].version.to_s}
+      response = {
+        status:  :ok,
+        message: Gem.loaded_specs['bonusly_dashboard'].version.to_s
+      }
       render json: response
     end
 
+    def data
+      render json: data_json
+    end
+
     private
+
+    def data_json
+      Rails.cache.fetch("dashboard-data-#{params[:access_token]}", expires_in: 5.minutes) do
+        {
+          success: success?,
+          stats: stats.as_json,
+          bonuses: bonuses.as_json
+        }
+      end
+    end
+
+    def success?
+      [stats, bonuses].all?(&:success?)
+    end
+
+    def stats
+      @stats ||= Stats.new(base_url: request.base_url, params: params)
+    end
+
+    def bonuses
+      @bonuses ||= Bonuses.new(base_url: request.base_url, params: params)
+    end
 
     def access_token
       @access_token ||= params[:access_token].presence || current_user&.api_key&.access_token

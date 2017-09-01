@@ -12,15 +12,7 @@
       .inline-bonus-amount, .highlighted-bonus-name, .user-link, #bonus-reason > a[target='_blank'] { color: <%= @theme_color %>; }
       .inline-bonus-amount { border: 0.1em solid <%= @theme_color %>; }
     </style>
-    <%= javascript_include_tag 'jquery-1.12.4.min.js' %>
-    <%= javascript_include_tag 'Util.js' %>
-    <%= javascript_include_tag 'Bonus.js' %>
-    <%= javascript_include_tag 'Stat.js' %>
-    <%= javascript_include_tag 'StatManager.js' %>
-    <%= javascript_include_tag 'BonusManager.js' %>
-    <%= javascript_include_tag 'Manager.js' %>
-    <%= javascript_include_tag 'BonuslyDashboard.js' %>
-    <%= javascript_include_tag 'app.js' %>
+    <%= javascript_include_tag 'dashboard-manifest' %>
   </head>
   <body class="highlights"
         data-access-token="<%= @access_token %>"
