@@ -47,8 +47,7 @@ Manager.prototype = {
 
     $.post(this.analyticsApi + '?' + this.analyticsParams);
 
-    $.get('/company/dashboard/version').done(function(data) {
-      console.log(data.message);
+    $.get(this.dashboard.config.versionApiUri).done(function(data) {
       if (self.version == null) self.version = data.message;
       else if (self.version != data.message) location.reload();
     });
