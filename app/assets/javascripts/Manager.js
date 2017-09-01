@@ -1,11 +1,12 @@
 function Manager(dashboard) {
   this.dashboard = dashboard;
-  
+
   this.version = null;
 
   this.callback_set_id = null;
   this.callback_count = null;
   this.callback_response = {};
+  this.failure_count = 0;
 
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
@@ -80,14 +81,17 @@ Manager.prototype = {
   },
 
   handleCallbackFailure: function(type) {
-    console.log('Failed to load ' + type + ' data, retrying in 10 seconds');
+    this.failure_count += 1;
+
+    var waitTime = this.failure_count + 10;
+    console.log('Failed to load ' + type + ' data, retrying in ' + waitTime + ' seconds');
 
     if (this.callback_set_id != null) {
       this.callback_set_id = null;
       this.callback_count = Infinity;
 
       var self = this;
-      setTimeout(function() { self.load() }, Util.seconds(10));
+      setTimeout(function() { self.load() }, Util.seconds(waitTime));
     }
   },
 
