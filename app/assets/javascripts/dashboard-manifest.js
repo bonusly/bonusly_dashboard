@@ -1,0 +1,9 @@
+//= require jquery-1.12.4.min
+//= require Util
+//= require Bonus
+//= require Stat
+//= require StatManager
+//= require BonusManager
+//= require Manager
+//= require BonuslyDashboard
+//= require app
