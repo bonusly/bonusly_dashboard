@@ -28,10 +28,10 @@ module BonuslyDashboard
     private
 
     def data_json
-      Rails.cache.fetch("dashboard-data-#{params[:access_token]}", expires_in: 5.minutes) do
+      Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
         {
           success: success?,
-          stats: stats.as_json,
+          stats:   stats.as_json,
           bonuses: bonuses.as_json
         }
       end
@@ -69,6 +69,10 @@ module BonuslyDashboard
 
     def api_key
       @api_key ||= ApiKey.for_access_token(access_token).first
+    end
+
+    def cache_key
+      "dashboard-data-#{params[:access_token]}-#{params[:limit]}"
     end
 
     def ensure_api_key

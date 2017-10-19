@@ -11,6 +11,7 @@ Bonus.prototype = {
       bonus.showFamilyAmount();
       bonus.showRecipients();
       bonus.showReason();
+      bonus.showImage();
       bonus.showTimestamp();
       $('.highlighted-bonus-container').removeClass('unloaded');
       $bonusContainer.fadeIn(Util.seconds(2));
@@ -37,6 +38,13 @@ Bonus.prototype = {
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
     $bonusAuthor.text(this.data.giver.display_name + ':');
     $('#bonus-reason').html(reason);
+  },
+  showImage: function() {
+    var image = $(this.data.reason_html).find('img')[0];
+
+    if (image == undefined) { return }
+
+    $('.bonus-image').css({'background-image': 'url(' + $(image).attr('src') + ')'})
   },
   showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');
