@@ -32,7 +32,9 @@ Bonus.prototype = {
     }
   },
   showReason: function() {
-    var reason = this.data.reason_html;
+    var reason = $(this.data.reason_html).not('a[target="_blank"]');
+
+
 
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
@@ -42,9 +44,13 @@ Bonus.prototype = {
   showImage: function() {
     var image = $(this.data.reason_html).find('img')[0];
 
-    if (image == undefined) { return }
+    if (image == undefined) {
+      image = 'none';
+    } else {
+      image = 'url(' + $(image).attr('src') + ')';
+    }
 
-    $('.bonus-image').css({'background-image': 'url(' + $(image).attr('src') + ')'})
+    $('.bonus-image').css({'background-image': image})
   },
   showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');
