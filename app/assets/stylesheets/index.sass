@@ -18,15 +18,6 @@ a
 .forced_change_that_should_refresh_cache
   display: none
 
-.bonus-image
-  position: fixed
-  top: 0
-  bottom: 0
-  left: 0
-  right: 0
-  background-size: cover
-  z-index: -1000000
-
 .highlights
   display: -webkit-box
   display: -moz-box
@@ -70,6 +61,7 @@ a
     font-size: 54px
 
 .highlighted-bonus-container
+  position: relative
   -webkit-box-flex: 2
   -moz-box-flex: 2
   box-flex: 2
@@ -83,7 +75,27 @@ a
   display: -ms-flexbox
   display: flex
   overflow: hidden
-  margin: 0.5em
+  padding: 0.5em
+
+.bonus-image
+  position: absolute
+  top: 0
+  right: 0
+  width: 90%
+  height: 100%
+  opacity: .75
+  filter: blur(.5px)
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  z-index: -1000000
+
+.fade-gradient
+  position: absolute
+  top: 0
+  left: 0
+  width: 20%
+  height: 100%
 
 .fa-spin
   display: none
@@ -111,6 +123,11 @@ a
   border-radius: 0.25em
   box-shadow: 0 0.05em 0.15em rgba(51, 51, 51, 0.1)
   overflow: hidden
+
+.has-image .highlighted-bonus
+  margin: auto 0
+  max-width: 70%
+  background: linear-gradient(to left, rgba(255,255,255,.6), rgba(255,255,255,.8), rgba(255,255,255,1))
 
 .highlighted-bonus-header::after
   clear: both
@@ -154,6 +171,9 @@ a
   margin: 1em 0 0 0
   line-height: 1.3em
 
+.has-image .highlighted-bonus-body
+  text-shadow: 0 0 6px #fff
+
 #bonus-reason > a[target='_blank']:hover
   text-decoration: underline
 
@@ -176,7 +196,7 @@ a
   text-decoration: underline
 
 .highlighted-bonus-hashtag, .hashtag
-  color: #aaa
+  color: #999
 .highlighted-bonus-hashtag:hover
   text-decoration: underline
 

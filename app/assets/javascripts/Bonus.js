@@ -47,6 +47,7 @@ Bonus.prototype = {
     if (image == undefined) {
       image = 'none';
     } else {
+      $('.highlighted-bonus-container').addClass('has-image');
       image = 'url(' + $(image).attr('src') + ')';
     }
 
