@@ -45,6 +45,7 @@ Bonus.prototype = {
     var image = $(this.data.reason_html).find('img')[0];
 
     if (image == undefined) {
+      $('.highlighted-bonus-container').removeClass('has-image');
       image = 'none';
     } else {
       $('.highlighted-bonus-container').addClass('has-image');
