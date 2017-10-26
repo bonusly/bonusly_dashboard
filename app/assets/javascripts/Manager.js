@@ -36,8 +36,8 @@ Manager.prototype = {
     $.post(this.analyticsApi + '?' + this.analyticsParams);
 
     $.get(this.dashboard.config.versionApiUri).done(function(data) {
-      if (self.version == null) self.version = data.message;
-      else if (self.version != data.message) location.reload();
+      if (self.version === null) self.version = data.message;
+      else if (self.version !== data.message) location.reload();
     });
 
     var callback_set_id = this.callback_set_id = Math.floor(Math.random() * 10e10);
@@ -45,19 +45,19 @@ Manager.prototype = {
 
     $.getJSON( '/company/dashboard/data?' + this.dataParams )
         .done( function(data) {
-          if (data.success == false) return self.handleCallbackFailure();
+          if (data.success === false) return self.handleCallbackFailure();
 
           self.handleCallbackSuccess(data, callback_set_id);
         }).fail( function() { self.handleCallbackFailure() } );
   },
 
   handleCallbackSuccess: function(data, callback_set_id) {
-    if (callback_set_id != this.callback_set_id) { return false; }
+    if (callback_set_id !== this.callback_set_id) { return false; }
 
     this.callback_response['bonuses'] = data.bonuses;
     this.callback_response['stats'] = data.stats;
 
-    if (this.callback_response.success) {
+    if (this.callback_response.bonuses.success) {
       $.each(this.subManagers, function (_, instance) {
         instance.build()
       });
