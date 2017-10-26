@@ -8,8 +8,8 @@ function StatManager(parent) {
 StatManager.prototype = {
 
   build: function() {
-    this.stats = [];
-    var stat_data = this.parent.callback_response.stats;
+    this.stats     = [];
+    var stat_data  = this.parent.callback_response.stats;
     var bonus_data = this.parent.callback_response.bonuses;
 
     bonus_data.result.stat_type = 'recent_receivers';
@@ -28,6 +28,8 @@ StatManager.prototype = {
     $highlightedStat.fadeOut(Util.seconds(1), function() {
       $highlightedStat.remove();
     });
+
+    if (this.stats.length == 0) { return; }
 
     while (count < 2) {
       count++;
