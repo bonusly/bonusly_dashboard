@@ -57,7 +57,11 @@ Manager.prototype = {
     this.callback_response['bonuses'] = data.bonuses;
     this.callback_response['stats'] = data.stats;
 
-    $.each(this.subManagers, function(_, instance) { instance.build() });
+    if (this.callback_response.success) {
+      $.each(this.subManagers, function (_, instance) {
+        instance.build()
+      });
+    }
 
     this.showStart();
   },
