@@ -1,5 +1,6 @@
 function Bonus(data) {
-  this.data = data;
+  data.reason_html = '<span>' + data.reason_html + '<span>';
+  this.data        = data;
 }
 
 Bonus.prototype = {
@@ -32,9 +33,8 @@ Bonus.prototype = {
     }
   },
   showReason: function() {
-    var reason = $(this.data.reason_html).not('a[target="_blank"]');
-
-
+    var reason = $(this.data.reason_html);
+    reason.find('a[target="_blank"]').remove();
 
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
