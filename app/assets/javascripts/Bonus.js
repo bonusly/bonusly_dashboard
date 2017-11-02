@@ -42,7 +42,7 @@ Bonus.prototype = {
     $('#bonus-reason').html(reason);
   },
   showImage: function() {
-    var image = $(this.data.reason_html).find('img')[0];
+    var image = $(this.data.reason_html).find('img:not(.emoji)')[0];
 
     if (image == undefined) {
       $('.highlighted-bonus-container').removeClass('has-image');
