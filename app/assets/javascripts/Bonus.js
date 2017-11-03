@@ -42,9 +42,9 @@ Bonus.prototype = {
     $('#bonus-reason').html(reason);
   },
   showImage: function() {
-    var image = $(this.data.reason_html).find('.image-link > img');
+    var image = $(this.data.reason_html).find('.image-link > img')[0];
 
-    if (image === undefined) {
+    if (image == undefined) {
       $('.highlighted-bonus-container').removeClass('has-image');
       image = 'none';
     } else {
