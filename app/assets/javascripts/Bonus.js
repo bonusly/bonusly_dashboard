@@ -34,7 +34,7 @@ Bonus.prototype = {
   },
   showReason: function() {
     var reason = $(this.data.reason_html);
-    reason.find('a[target="_blank"]').remove();
+    reason.find('.image-link').remove();
 
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
@@ -42,9 +42,9 @@ Bonus.prototype = {
     $('#bonus-reason').html(reason);
   },
   showImage: function() {
-    var image = $(this.data.reason_html).find('img:not(.emoji)')[0];
+    var image = $(this.data.reason_html).find('.image-link > img');
 
-    if (image == undefined) {
+    if (image === undefined) {
       $('.highlighted-bonus-container').removeClass('has-image');
       image = 'none';
     } else {
