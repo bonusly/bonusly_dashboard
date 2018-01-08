@@ -1,7 +1,7 @@
 module BonuslyDashboard
   class DashboardController < ApplicationController
-    skip_after_filter :intercom_rails_auto_include
-    before_filter :ensure_api_key, only: :index
+    skip_after_action :intercom_rails_auto_include
+    before_action :ensure_api_key, only: :index
 
     def index
       override_x_frame_options('ALLOWALL')
