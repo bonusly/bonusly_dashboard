@@ -36,7 +36,7 @@ module BonuslyDashboard
     end
 
     def urlized_params
-      relevant_params.map { |key, value| "#{key}=#{value}" }.join('&')
+      URI.escape(relevant_params.map { |key, value| "#{key}=#{value}" }.join('&'))
     end
 
     def endpoint
