@@ -76,7 +76,7 @@ module BonuslyDashboard
     end
 
     def ensure_api_key
-      render text: 'Invalid access token provided', status: 401 unless api_key.present?
+      render plain: 'Invalid access token provided', status: 401 unless api_key.present?
     end
   end
 end
