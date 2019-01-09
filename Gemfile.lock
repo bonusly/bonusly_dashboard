@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bonusly_dashboard (0.2.3)
+    bonusly_dashboard (0.2.5)
       font-awesome-sass (>= 4.6.2)
       secure_headers
 
