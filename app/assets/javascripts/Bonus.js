@@ -34,7 +34,7 @@ Bonus.prototype = {
   },
   showReason: function() {
     var reason = $(this.data.reason_html);
-    reason.find('.image-link').remove();
+    reason.find('.bonus-image-wrapper').remove();
 
     var $bonusAuthor = $('.highlighted-bonus-author');
     $bonusAuthor.attr('href', 'https://bonus.ly/company/users/' + this.data.giver.id);
@@ -42,7 +42,7 @@ Bonus.prototype = {
     $('#bonus-reason').html(reason);
   },
   showImage: function() {
-    var image = $(this.data.reason_html).find('.image-link > img')[0];
+    var image = $(this.data.reason_html).find('.bonus-image-wrapper > img')[0];
 
     if (image == undefined) {
       $('.highlighted-bonus-container').removeClass('has-image');
