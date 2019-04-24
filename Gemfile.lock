@@ -3,26 +3,17 @@ PATH
   specs:
     bonusly_dashboard (0.3.0)
       font-awesome-sass (>= 4.6.2)
-      secure_headers
 
 GEM
   remote: https://rubygems.org/
   specs:
-    ffi (1.9.25)
-    font-awesome-sass (5.3.1)
+    ffi (1.10.0)
+    font-awesome-sass (5.8.1)
       sassc (>= 1.11)
-    rb-fsevent (0.10.3)
-    rb-inotify (0.9.10)
-      ffi (>= 0.5.0, < 2)
-    sass (3.5.7)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sassc (1.12.1)
-      ffi (~> 1.9.6)
-      sass (>= 3.3.0)
-    secure_headers (6.0.0)
+    rake (12.3.2)
+    sassc (2.0.1)
+      ffi (~> 1.9)
+      rake
 
 PLATFORMS
   ruby
@@ -31,4 +22,4 @@ DEPENDENCIES
   bonusly_dashboard!
 
 BUNDLED WITH
-   1.16.3
+   1.17.2
