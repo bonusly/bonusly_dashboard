@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bonusly_dashboard (0.3.0)
+    bonusly_dashboard (1.0.0)
       font-awesome-sass (>= 4.6.2)
 
 GEM
@@ -22,4 +22,4 @@ DEPENDENCIES
   bonusly_dashboard!
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
