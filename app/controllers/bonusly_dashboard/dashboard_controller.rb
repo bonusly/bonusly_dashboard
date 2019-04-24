@@ -1,11 +1,10 @@
 module BonuslyDashboard
   class DashboardController < ApplicationController
     skip_after_action :intercom_rails_auto_include
-    before_action :ensure_api_key, only: :index
+    before_action     :set_x_frame_options_header
+    before_action     :ensure_api_key, only: :index
 
     def index
-      override_x_frame_options('ALLOWALL')
-
       @access_token = access_token
       @company      = company
       @theme_color  = theme_color
@@ -26,6 +25,10 @@ module BonuslyDashboard
     end
 
     private
+
+    def set_x_frame_options_header
+      response.headers['X-FRAME-OPTIONS'] = 'ALLOWALL'
+    end
 
     def data_json
       Rails.cache.fetch(cache_key, expires_in: 5.minutes) do

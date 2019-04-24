@@ -10,6 +10,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://bonus.ly'
   s.license     = 'MIT'
   s.add_runtime_dependency 'font-awesome-sass', ['>= 4.6.2']
-  s.add_runtime_dependency 'secure_headers'
   s.require_paths = ['lib']
 end
