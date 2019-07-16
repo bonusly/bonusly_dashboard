@@ -12,7 +12,7 @@ Bonus.prototype = {
       bonus.showFamilyAmount();
       bonus.showRecipients();
       bonus.showReason();
-      bonus.showImage();
+      bonus.showMedia();
       bonus.showTimestamp();
       $('.highlighted-bonus-container').removeClass('unloaded');
       $bonusContainer.fadeIn(Util.seconds(2));
@@ -41,18 +41,33 @@ Bonus.prototype = {
     $bonusAuthor.text(this.data.giver.display_name + ':');
     $('#bonus-reason').html(reason);
   },
-  showImage: function() {
-    var image = $(this.data.reason_html).find('.bonus-image-wrapper > img')[0];
+  showMedia: function() {
+    image = $(this.data.reason_html).find('.bonus-image-wrapper > img')[0];
+    video = $(this.data.reason_html).find('.bonus-image-wrapper source')[0];
+    $('.bonus-image').css({'background-image': 'none'})
 
-    if (image == undefined) {
+    if(image == undefined && video == undefined){
       $('.highlighted-bonus-container').removeClass('has-image');
-      image = 'none';
     } else {
       $('.highlighted-bonus-container').addClass('has-image');
-      image = 'url(' + $(image).attr('src') + ')';
     }
 
+    if(image != undefined) {
+      this.showImage(image);
+    }
+    if(video != undefined) {
+      this.showVideo(video);
+    }
+  },
+  showImage: function(url) {
+    image = 'url(' + $(url).attr('src') + ')';
+
     $('.bonus-image').css({'background-image': image})
+  },
+  showVideo: function(video) {
+    $('.bonus-video source').attr('src', $(video).attr('src'))
+    $('.bonus-video video')[0].load()
+    $('.bonus-video video')[0].play()
   },
   showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');
