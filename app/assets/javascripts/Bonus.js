@@ -42,7 +42,7 @@ Bonus.prototype = {
     $('#bonus-reason').html(reason);
   },
   showMedia: function() {
-    $('.bonus-image').css({'background-image': 'none'})
+    $('.bonus-image').css({'background-image': 'none'});
     $('.highlighted-bonus-container').removeClass('has-image');
 
     image = $(this.data.reason_html).find('.bonus-image-wrapper > img')[0];
@@ -59,13 +59,13 @@ Bonus.prototype = {
     $('.highlighted-bonus-container').addClass('has-image');
     image = 'url(' + $(url).attr('src') + ')';
 
-    $('.bonus-image').css({'background-image': image})
+    $('.bonus-image').css({'background-image': image});
   },
   showVideo: function(video) {
     $('.highlighted-bonus-container').addClass('has-image');
-    $('.bonus-video source').attr('src', $(video).attr('src'))
-    $('.bonus-video video')[0].load()
-    $('.bonus-video video')[0].play()
+    $('.bonus-video source').attr('src', $(video).attr('src'));
+    $('.bonus-video video')[0].load();
+    $('.bonus-video video')[0].play();
   },
   showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');
