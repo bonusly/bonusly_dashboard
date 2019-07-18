@@ -42,15 +42,11 @@ Bonus.prototype = {
     $('#bonus-reason').html(reason);
   },
   showMedia: function() {
+    $('.bonus-image').css({'background-image': 'none'})
+    $('.highlighted-bonus-container').removeClass('has-image');
+
     image = $(this.data.reason_html).find('.bonus-image-wrapper > img')[0];
     video = $(this.data.reason_html).find('.bonus-image-wrapper source')[0];
-    $('.bonus-image').css({'background-image': 'none'})
-
-    if(image == undefined && video == undefined){
-      $('.highlighted-bonus-container').removeClass('has-image');
-    } else {
-      $('.highlighted-bonus-container').addClass('has-image');
-    }
 
     if(image != undefined) {
       this.showImage(image);
@@ -60,11 +56,13 @@ Bonus.prototype = {
     }
   },
   showImage: function(url) {
+    $('.highlighted-bonus-container').addClass('has-image');
     image = 'url(' + $(url).attr('src') + ')';
 
     $('.bonus-image').css({'background-image': image})
   },
   showVideo: function(video) {
+    $('.highlighted-bonus-container').addClass('has-image');
     $('.bonus-video source').attr('src', $(video).attr('src'))
     $('.bonus-video video')[0].load()
     $('.bonus-video video')[0].play()
