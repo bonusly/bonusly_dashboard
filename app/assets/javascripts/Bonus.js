@@ -44,6 +44,7 @@ Bonus.prototype = {
   showMedia: function() {
     $('.bonus-image').css({'background-image': 'none'});
     $('.highlighted-bonus-container').removeClass('has-image');
+    $('.bonus-video').hide();
 
     image = $(this.data.reason_html).find('.bonus-image-wrapper > img')[0];
     video = $(this.data.reason_html).find('.bonus-image-wrapper source')[0];
@@ -66,6 +67,7 @@ Bonus.prototype = {
     $('.bonus-video source').attr('src', $(video).attr('src'));
     $('.bonus-video video')[0].load();
     $('.bonus-video video')[0].play();
+    $('.bonus-video').show();
   },
   showTimestamp: function() {
     var $timestamp = $('.highlighted-bonus-timestamp');
