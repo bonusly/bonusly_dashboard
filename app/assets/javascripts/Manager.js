@@ -11,7 +11,7 @@ function Manager(dashboard) {
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
     access_token: dashboard.config.accessToken,
-    category: 'dashboard',
+    category: 'digital-signage',
     event: 'fetch',
     label: $('body').data('company-name')
   });
@@ -43,7 +43,7 @@ Manager.prototype = {
     var callback_set_id = this.callback_set_id = Math.floor(Math.random() * 10e10);
     this.callback_count = Object.keys(this.subManagers).length;
 
-    $.getJSON( '/company/dashboard/data?' + this.dataParams )
+    $.getJSON( '/company/digital_signage/data?' + this.dataParams )
         .done( function(data) {
           if (data.success === false) return self.handleCallbackFailure();
 
