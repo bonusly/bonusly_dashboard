@@ -7,7 +7,7 @@ function BonuslyDashboard(options) {
     bonusApiUri:     '/api/v1/bonuses',
     statApiUri:      '/api/v1/stats',
     analyticsApiUri: '/api/v1/instrumentation/events',
-    versionApiUri:   '/company/dashboard/version'
+    versionApiUri:   '/company/digital_signage/version'
   };
 
   $.extend(this.config, options);
