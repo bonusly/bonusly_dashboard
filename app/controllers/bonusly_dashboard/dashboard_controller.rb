@@ -75,7 +75,7 @@ module BonuslyDashboard
     end
 
     def cache_key
-      "dashboard-data-#{params[:access_token]}-#{params[:limit]}"
+      "dashboard-data-#{access_token}-#{params[:limit]}"
     end
 
     def ensure_api_key
