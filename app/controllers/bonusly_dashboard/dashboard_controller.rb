@@ -45,15 +45,19 @@ module BonuslyDashboard
     end
 
     def stats
-      @stats ||= Stats.new(base_url: request.base_url, params: params)
+      @stats ||= Stats.new(base_url: request.base_url, params: api_params)
     end
 
     def bonuses
-      @bonuses ||= Bonuses.new(base_url: request.base_url, params: params)
+      @bonuses ||= Bonuses.new(base_url: request.base_url, params: api_params)
     end
 
     def access_token
       session[:access_token]
+    end
+
+    def api_params
+      params.merge(access_token: access_token)
     end
 
     def company
