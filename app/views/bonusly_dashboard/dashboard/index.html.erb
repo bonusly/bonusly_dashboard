@@ -19,9 +19,20 @@
         data-access-token="<%= @access_token %>"
         data-company-name="<%= @company&.name %>" >
 
+    <% if @access_token.blank? %>
+      <div class="not-authenticated">
+        <h2>Who are you?</h2>
+
+        <p>
+          <%= link_to 'Please log in', root_url %>
+          <br>
+          .. and then come back!
+        </p>
+      </div>
+    <% end %>
+
     <!-- Bonus Container -->
     <div class="highlighted-bonus-container unloaded">
-
       <h2 class="no-bonus-message">Who helped you out today?<br/>Give them a bonus to say thanks!</h2>
 
       <div class="bonus-image"><div class="fade-gradient"></div></div>
