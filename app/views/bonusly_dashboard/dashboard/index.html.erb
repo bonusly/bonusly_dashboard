@@ -21,13 +21,15 @@
 
     <% if @access_token.blank? %>
       <div class="not-authenticated">
-        <h2>Who are you?</h2>
+        <h2>Hi! Who are you?</h2>
 
-        <p>
-          <%= link_to 'Please log in', root_url %>
-          <br>
-          .. and then come back!
-        </p>
+        <%= link_to 'Please sign in to Bonusly', root_url %>
+        <br><br>
+        Alternatively...<br>if you have an access token,
+        <%= form_tag({}, method: :get) do %>
+          <%= text_field_tag :access_token, nil, placeholder: 'put it here' %>
+          <%= submit_tag 'submit' %>
+        <% end %>
       </div>
     <% end %>
 
