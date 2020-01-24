@@ -19,7 +19,8 @@ module BonuslyDashboard
 
     def parsed_response
       @parsed_response ||= JSON.parse(response)
-    rescue JSON::ParserError
+    rescue JSON::ParserError => e
+      Rails.logger.info "DASHBOARD JSON PARSE ERROR: #{e.message} : #{response}"
       nil
     end
 
