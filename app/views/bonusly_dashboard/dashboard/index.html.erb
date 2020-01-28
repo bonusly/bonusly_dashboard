@@ -21,15 +21,15 @@
 
     <% if @access_token.blank? %>
       <div class="not-authenticated">
-        <h2>Hi! Who are you?</h2>
+        <header><img src="https://production-cdn.bonus.ly/assets/logo/bonusly_logo_and_name_large_dark.png" width="250px"></header>
 
-        <%= link_to 'Please sign in to Bonusly', root_url %>
-        <br><br>
-        Alternatively...<br>if you have an access token,
+        <h2>Please enter your access token:</h2>
         <%= form_tag({}, method: :get) do %>
-          <%= text_field_tag :access_token, nil, placeholder: 'put it here' %>
-          <%= submit_tag 'submit' %>
+          <%= text_field_tag :access_token, nil, placeholder: 'Enter access token' %>
+          <%= submit_tag 'Submit' %>
         <% end %>
+
+        <p>If you don't have an access code, <%= link_to 'try signing in', users_sign_in_start_url %> and then refreshing this page.</p>
       </div>
     <% end %>
 
