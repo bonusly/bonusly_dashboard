@@ -15,7 +15,5 @@ function BonuslyDashboard(options) {
   if (this.config.accessToken) {
     this.bonusManager = new Manager(this);
     this.bonusManager.load();
-  } else {
-    alert('Access token not set, unable to access API.');
   }
 }

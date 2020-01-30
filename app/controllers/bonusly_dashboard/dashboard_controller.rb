@@ -2,7 +2,7 @@ module BonuslyDashboard
   class DashboardController < ApplicationController
     skip_after_action :intercom_rails_auto_include
     before_action     :set_x_frame_options_header
-    before_action     :ensure_api_key, only: :index
+    before_action     :set_session, :ensure_api_key, only: :index
 
     def index
       @access_token = access_token
@@ -45,15 +45,19 @@ module BonuslyDashboard
     end
 
     def stats
-      @stats ||= Stats.new(base_url: request.base_url, params: params)
+      @stats ||= Stats.new(base_url: request.base_url, params: api_params)
     end
 
     def bonuses
-      @bonuses ||= Bonuses.new(base_url: request.base_url, params: params)
+      @bonuses ||= Bonuses.new(base_url: request.base_url, params: api_params)
     end
 
     def access_token
-      @access_token ||= params[:access_token].presence || current_user&.api_key&.access_token
+      session[:access_token]
+    end
+
+    def api_params
+      params.merge(access_token: access_token)
     end
 
     def company
@@ -75,11 +79,16 @@ module BonuslyDashboard
     end
 
     def cache_key
-      "dashboard-data-#{params[:access_token]}-#{params[:limit]}"
+      "dashboard-data-#{access_token}-#{params[:limit]}"
     end
 
     def ensure_api_key
-      render plain: 'Invalid access token provided', status: 401 unless api_key.present?
+      session[:access_token] = nil if api_key.nil?
+    end
+
+    def set_session
+      session[:access_token] = params[:access_token].presence || current_user&.api_key&.access_token || session[:access_token]
+      redirect_to params.permit!.except(:access_token) if params[:access_token].present?
     end
   end
 end

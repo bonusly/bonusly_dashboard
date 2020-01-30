@@ -19,9 +19,22 @@
         data-access-token="<%= @access_token %>"
         data-company-name="<%= @company&.name %>" >
 
+    <% if @access_token.blank? %>
+      <div class="not-authenticated">
+        <header><img src="https://production-cdn.bonus.ly/assets/logo/bonusly_logo_and_name_large_dark.png" width="250px"></header>
+
+        <h2>Please enter your access token:</h2>
+        <%= form_tag({}, method: :get) do %>
+          <%= text_field_tag :access_token, nil, placeholder: 'Enter access token' %>
+          <%= submit_tag 'Submit' %>
+        <% end %>
+
+        <p>If you don't have an access code, <%= link_to 'try signing in', users_sign_in_start_url %> and then refreshing this page.</p>
+      </div>
+    <% end %>
+
     <!-- Bonus Container -->
     <div class="highlighted-bonus-container unloaded">
-
       <h2 class="no-bonus-message">Who helped you out today?<br/>Give them a bonus to say thanks!</h2>
 
       <div class="bonus-image"><div class="fade-gradient"></div></div>
