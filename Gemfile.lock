@@ -10,7 +10,7 @@ GEM
     ffi (1.10.0)
     font-awesome-sass (5.8.1)
       sassc (>= 1.11)
-    rake (12.3.2)
+    rake (13.0.1)
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
