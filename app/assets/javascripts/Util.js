@@ -1,5 +1,5 @@
 var Util = {
-  
+
   getUrlParams: function() {
     var result = [];
 
@@ -14,7 +14,7 @@ var Util = {
 
     return result;
   },
-  
+
   timeSince: function(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
     var interval = Math.floor(seconds / 31536000);
@@ -40,11 +40,11 @@ var Util = {
     }
     return Math.floor(seconds) + " seconds";
   },
-  
+
   seconds: function(seconds) { return seconds * 1000; },
-  
+
   minutes: function(minutes) { return minutes * 1000 * 60; },
-  
+
   days: function(days) { return days * 1000 * 60 * 60 * 24 },
 
   shuffle: function(arr) {
@@ -53,8 +53,8 @@ var Util = {
   },
 
   useBonus: function(bonus) {
-    return (bonus.receivers.length <= 5 &&
-            Util.getLength(bonus) <= 200);
+    return (bonus.receivers.length <= 10 &&
+            Util.getLength(bonus) <= 800);
   },
 
   getLength: function(bonus) {
