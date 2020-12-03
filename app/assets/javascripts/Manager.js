@@ -10,7 +10,6 @@ function Manager(dashboard) {
 
   this.analyticsApi = dashboard.config.analyticsApiUri;
   this.analyticsParams = $.param({
-    access_token: dashboard.config.accessToken,
     category: 'digital-signage',
     event: 'fetch',
     label: $('body').data('company-name')
@@ -19,7 +18,6 @@ function Manager(dashboard) {
   var timeSinceDayStart = (new Date().getTime() - new Date().setHours(0,0,0,0)) / 1000;
 
   this.dataParams = $.param({
-    access_token: dashboard.config.accessToken,
     duration: timeSinceDayStart,
     limit: dashboard.config.bonusLimit,
     start_time: this.bonusesStartDate()
@@ -33,7 +31,13 @@ Manager.prototype = {
   load: function() {
     var self = this;
 
-    $.post(this.analyticsApi + '?' + this.analyticsParams);
+    $.ajax({
+      url: this.analyticsApi + '?' + this.analyticsParams,
+      method: 'POST',
+      beforeSend: function(req) {
+        req.setRequestHeader('Authorization', 'Bearer '.concat(self.dashboard.config.accessToken));
+      }
+    });
 
     $.get(this.dashboard.config.versionApiUri).done(function(data) {
       if (self.version === null) self.version = data.message;

@@ -25,11 +25,19 @@ module BonuslyDashboard
     end
 
     def response
-      @response ||= Net::HTTP.get(url)
+      @response ||= Net::HTTP.start(url.hostname, url.port) do |http|
+        http.request(request)
+      end.body
+    end
+
+    def request
+      Net::HTTP::Get.new(url).tap do |req|
+        req['Authorization'] = "Bearer #{params[:access_token]}"
+      end
     end
 
     def url
-      URI.join(
+      @url ||= URI.join(
         base_url,
         endpoint,
         "?#{urlized_params}"
