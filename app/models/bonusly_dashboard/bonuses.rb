@@ -9,7 +9,6 @@ module BonuslyDashboard
 
     def relevant_params
       {
-        access_token:     params[:access_token],
         limit:            params[:limit],
         start_time:       params[:start_time],
         exclude_archived: true
