@@ -25,7 +25,7 @@ module BonuslyDashboard
     end
 
     def response
-      @response ||= Net::HTTP.start(url.hostname, url.port) do |http|
+      @response ||= Net::HTTP.start(url.hostname, url.port, use_ssl: url.to_s.start_with?('https')) do |http|
         http.request(request)
       end.body
     end
