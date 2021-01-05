@@ -91,7 +91,8 @@ module BonuslyDashboard
     def set_cookie
       cookies[:access_token] = {
         value: params[:access_token].presence || current_user&.api_key&.access_token || cookies[:access_token] || session[:access_token],
-        secure: !(Rails.env.development? || Rails.env.test?)
+        secure: !(Rails.env.development? || Rails.env.test?),
+        same_site: :none
       }
       redirect_to params.permit!.except(:access_token) if params[:access_token].present?
     end
