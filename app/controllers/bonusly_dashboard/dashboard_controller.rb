@@ -2,7 +2,7 @@ module BonuslyDashboard
   class DashboardController < ApplicationController
     skip_after_action :intercom_rails_auto_include
     before_action     :set_x_frame_options_header
-    before_action     :set_session, :ensure_api_key, only: :index
+    before_action     :set_cookie, :ensure_api_key, only: :index
 
     def index
       @access_token = access_token
@@ -52,8 +52,10 @@ module BonuslyDashboard
       @bonuses ||= Bonuses.new(base_url: request.base_url, params: api_params)
     end
 
+    # Falling back to session to not break open dashboards while migrating to
+    # cookies for iframe support
     def access_token
-      session[:access_token]
+      cookies[:access_token] || session[:access_token]
     end
 
     def api_params
@@ -83,11 +85,15 @@ module BonuslyDashboard
     end
 
     def ensure_api_key
-      session[:access_token] = nil if api_key.nil?
+      cookies[:access_token] = nil if api_key.nil?
     end
 
-    def set_session
-      session[:access_token] = params[:access_token].presence || current_user&.api_key&.access_token || session[:access_token]
+    def set_cookie
+      cookies[:access_token] = {
+        value: params[:access_token].presence || current_user&.api_key&.access_token || cookies[:access_token] || session[:access_token],
+        secure: !(Rails.env.development? || Rails.env.test?),
+        same_site: :none
+      }
       redirect_to params.permit!.except(:access_token) if params[:access_token].present?
     end
   end
