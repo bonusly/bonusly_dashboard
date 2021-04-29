@@ -45,7 +45,7 @@ module BonuslyDashboard
     end
 
     def urlized_params
-      URI.escape(relevant_params.map { |key, value| "#{key}=#{value}" }.join('&'))
+      URI.encode_www_form(relevant_params.map { |key, value| "#{key}=#{value}" }.join('&'))
     end
 
     def endpoint
